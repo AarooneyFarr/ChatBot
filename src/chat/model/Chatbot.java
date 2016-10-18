@@ -20,14 +20,20 @@ public class Chatbot
 	 */
 	public Chatbot(String userName)
 	{
+		userName = "Aaron";
+		content = "";
+		memesList = new ArrayList<String>();
+		politicalTopicList = new ArrayList<String>();
 	}
 
 	private void buildMemesList()
 	{
+		
 	}
 
 	private void buildPoliticalTopicsList()
 	{
+
 	}
 
 	/**
@@ -43,7 +49,6 @@ public class Chatbot
 		{
 			hasLength = true;
 		}
-		
 
 		return hasLength;
 	}
@@ -94,7 +99,7 @@ public class Chatbot
 	 */
 	public String getUserName()
 	{
-		return null;
+		return userName;
 	}
 
 	/**
@@ -103,7 +108,7 @@ public class Chatbot
 	 */
 	public String getContent()
 	{
-		return null;
+		return content;
 	}
 
 	/**
@@ -112,7 +117,7 @@ public class Chatbot
 	 */
 	public ArrayList<String> getMemesList()
 	{
-		return null;
+		return memesList;
 	}
 
 	/**
@@ -121,7 +126,33 @@ public class Chatbot
 	 */
 	public ArrayList<String> getPoliticalTopicList()
 	{
-		return null;
+		return politicalTopicList;
+	}
+
+	/**
+	 * empty parameter right now
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public boolean keyboardMashChecker(String input)
+	{
+		return false;
+	}
+
+	public boolean twitterChecker(String input)
+	{
+		return false;
+	}
+
+	public boolean inputHTMLChecker(String input)
+	{
+		return false;
+	}
+
+	public boolean quitChecker(String input)
+	{
+		return false;
 	}
 
 	/**
@@ -130,5 +161,6 @@ public class Chatbot
 	 */
 	public void setContent(String content)
 	{
+
 	}
 }
