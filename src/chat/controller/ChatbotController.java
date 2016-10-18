@@ -1,8 +1,14 @@
 package chat.controller;
 
+import chat.model.Chatbot;
+
 public class ChatbotController
 {
-	public void start(){
+	private Chatbot stupidBot;
+	
+	
+	public void start()
+	{
 		
 	}
 }

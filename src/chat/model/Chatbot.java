@@ -43,12 +43,9 @@ public class Chatbot
 		{
 			hasLength = true;
 		}
-		else
-		{
+		
 
-		}
-
-		return false;
+		return hasLength;
 	}
 
 	/**
