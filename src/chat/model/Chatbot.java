@@ -26,7 +26,7 @@ public class Chatbot
 		buildMemesList();
 		politicalTopicList = new ArrayList<String>();
 		buildPoliticalTopicsList();
-		
+
 	}
 
 	private void buildMemesList()
@@ -45,12 +45,33 @@ public class Chatbot
 		memesList.add("ridiculously photogenic guy");
 		memesList.add("sudden clarity clarence");
 		memesList.add("skeptical baby");
+		memesList.add("hotline bling");
+		memesList.add("left shark");
+		memesList.add("pope bars");
 		
 	}
 
 	private void buildPoliticalTopicsList()
 	{
-
+		politicalTopicList.add("Democrat");
+		politicalTopicList.add("Republican");
+		politicalTopicList.add("11/8/16");
+		politicalTopicList.add("conservative");
+		politicalTopicList.add("Clinton");
+		politicalTopicList.add("Trump");
+		politicalTopicList.add("Kaine");
+		politicalTopicList.add("Pence");
+		politicalTopicList.add("Stein");
+		politicalTopicList.add("Johnson");
+		politicalTopicList.add("election");
+		politicalTopicList.add("liberal");
+		politicalTopicList.add("socialism");
+		politicalTopicList.add("democracy");
+		politicalTopicList.add("theocracy");
+		politicalTopicList.add("oligarchy");
+		politicalTopicList.add("debate");
+		politicalTopicList.add("presidential");
+		politicalTopicList.add("voters");
 	}
 
 	/**
@@ -81,11 +102,12 @@ public class Chatbot
 	public boolean contentChecker(String currentInput)
 	{
 		boolean hasContent = false;
-		
-		if (currentInput.contains(content)){
+
+		if (currentInput.contains(content))
+		{
 			hasContent = true;
 		}
-		
+
 		return hasContent;
 	}
 
@@ -101,7 +123,15 @@ public class Chatbot
 	public boolean politicalTopicChecker(String currentInput)
 	{
 		boolean hasPoliticalTopic = false;
-		
+
+		for (String currentPoliticalTopic : politicalTopicList)
+		{
+			if (currentInput.contains(currentPoliticalTopic))
+			{
+				hasPoliticalTopic = true;
+			}
+		}
+
 		return hasPoliticalTopic;
 	}
 
@@ -115,7 +145,17 @@ public class Chatbot
 	 */
 	public boolean memeChecker(String currentInput)
 	{
-		return false;
+		boolean hasMeme = false;
+
+		for (String currentMeme : memesList)
+		{
+			if (currentInput.contains(currentMeme))
+			{
+				hasMeme = true;
+			}
+		}
+
+		return hasMeme;
 	}
 
 	/**
