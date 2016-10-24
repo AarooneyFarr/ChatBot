@@ -7,6 +7,7 @@ public class ChatbotController
 {
 	private Chatbot stupidBot;
 	private ChatViewer display;
+	
 
 	public ChatbotController()
 	{
