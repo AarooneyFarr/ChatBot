@@ -12,6 +12,7 @@ public class Chatbot
 	private ArrayList<String> memesList;
 	private ArrayList<String> politicalTopicList;
 	private ArrayList<String> keyboardMashList;
+	private ArrayList<String> HTMLList;
 	private String userName;
 	private String content;
 
@@ -23,6 +24,8 @@ public class Chatbot
 	{
 		this.userName = userName;
 		this.content = "outdoors";
+		HTMLList = new ArrayList<String>();
+		buildHTMLList();
 		keyboardMashList = new ArrayList<String>();
 		buildKeyboardMashList();
 		memesList = new ArrayList<String>();
@@ -77,6 +80,7 @@ public class Chatbot
 		politicalTopicList.add("presidential");
 		politicalTopicList.add("Hillary");
 	}
+
 	private void buildKeyboardMashList()
 	{
 		keyboardMashList.add("sgh");
@@ -91,6 +95,15 @@ public class Chatbot
 		keyboardMashList.add("tyoi");
 		keyboardMashList.add("qwerty");
 		keyboardMashList.add("zxcv");
+	}
+
+	private void buildHTMLList()
+	{
+		HTMLList.add("<B>  </B>");
+		HTMLList.add("<I> sdadas </i>");
+		HTMLList.add("<P>");
+		HTMLList.add("<A HREF=\"sdfs.html\"> </a>");
+		
 	}
 
 	/**
@@ -223,7 +236,7 @@ public class Chatbot
 	{
 		boolean hasKeyboardMash = false;
 
-		for (String currentMashCheck : keyboardMashList )
+		for (String currentMashCheck : keyboardMashList)
 		{
 			if (currentInput.contains(currentMashCheck))
 			{
@@ -239,20 +252,30 @@ public class Chatbot
 		return false;
 	}
 
-	public boolean inputHTMLChecker(String input)
+	public boolean HTMLChecker(String currentInput)
 	{
-		return false;
+		boolean hasHTML = false;
+		
+		for(String currentHTMLCheck: HTMLList)
+		{
+			if(currentHTMLCheck.contains(currentInput))
+			{
+				hasHTML = true;
+			}
+		}
+		
+		return hasHTML;
 	}
 
 	public boolean quitChecker(String input)
 	{
 		boolean hasQuit = false;
-		
-		if(input.equals("quit"))
+
+		if (input.equals("quit"))
 		{
 			hasQuit = true;
 		}
-		
+
 		return hasQuit;
 	}
 
@@ -262,6 +285,6 @@ public class Chatbot
 	 */
 	public void setContent(String content)
 	{
-
+		this.content = content;
 	}
 }

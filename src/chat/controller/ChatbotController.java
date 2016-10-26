@@ -49,6 +49,10 @@ public class ChatbotController
 		{
 			checkedInput = "You are just smashing the keyboard!";
 		}
+		if(stupidBot.HTMLChecker(input))
+		{
+			checkedInput = "You are typing in HTML!";
+		}
 		if(stupidBot.quitChecker(input))
 		{
 			System.exit(0);
