@@ -11,6 +11,7 @@ public class Chatbot
 {
 	private ArrayList<String> memesList;
 	private ArrayList<String> politicalTopicList;
+	private ArrayList<String> keyboardMashList;
 	private String userName;
 	private String content;
 
@@ -22,6 +23,8 @@ public class Chatbot
 	{
 		this.userName = userName;
 		this.content = "outdoors";
+		keyboardMashList = new ArrayList<String>();
+		buildKeyboardMashList();
 		memesList = new ArrayList<String>();
 		buildMemesList();
 		politicalTopicList = new ArrayList<String>();
@@ -72,6 +75,21 @@ public class Chatbot
 		politicalTopicList.add("debate");
 		politicalTopicList.add("presidential");
 		politicalTopicList.add("voters");
+	}
+	private void buildKeyboardMashList()
+	{
+		keyboardMashList.add("S.D.F.");
+		keyboardMashList.add("dfg");
+		keyboardMashList.add("sdf");
+		keyboardMashList.add("cvb");
+		keyboardMashList.add(",./");
+		keyboardMashList.add("asdf");
+		keyboardMashList.add("sdfg");
+		keyboardMashList.add("dgh");
+		keyboardMashList.add("vbn");
+		keyboardMashList.add("tyoi");
+		keyboardMashList.add("qwerty");
+		keyboardMashList.add("zxcv");
 	}
 
 	/**
@@ -200,9 +218,19 @@ public class Chatbot
 	 * @param input
 	 * @return
 	 */
-	public boolean keyboardMashChecker(String input)
+	public boolean keyboardMashChecker(String currentInput)
 	{
-		return false;
+		boolean hasKeyboardMash = false;
+
+		for (String currentMashCheck : keyboardMashList )
+		{
+			if (currentInput.contains(currentMashCheck))
+			{
+				hasKeyboardMash = true;
+			}
+		}
+
+		return hasKeyboardMash;
 	}
 
 	public boolean twitterChecker(String input)

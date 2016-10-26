@@ -113,7 +113,7 @@ public class ChatbotTest
 	}
 	
 	@Test
-	public void testBuildPoliticalTopicList()
+	public void testBuildPoliticalTopicsList()
 	{
 		assertTrue("PoliticalTopicList Size check", sampleBot.getPoliticalTopicList().size() >= 18);
 		assertTrue("Political Topic check", sampleBot.getPoliticalTopicList().contains("Democrat"));
