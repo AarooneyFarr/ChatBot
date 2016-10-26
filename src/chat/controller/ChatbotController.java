@@ -49,9 +49,12 @@ public class ChatbotController
 		{
 			checkedInput = "You are just smashing the keyboard!";
 		}
-		if(stupidBot.HTMLChecker(input))
+		if(stupidBot.inputHTMLChecker(input))
 		{
 			checkedInput = "You are typing in HTML!";
+		}
+		if(stupidBot.twitterChecker(input)){
+			checkedInput = "You are trying to tweet using my dialog box!";
 		}
 		if(stupidBot.quitChecker(input))
 		{

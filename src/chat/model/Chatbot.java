@@ -13,6 +13,7 @@ public class Chatbot
 	private ArrayList<String> politicalTopicList;
 	private ArrayList<String> keyboardMashList;
 	private ArrayList<String> HTMLList;
+	private ArrayList<String> twitterList;
 	private String userName;
 	private String content;
 
@@ -24,6 +25,8 @@ public class Chatbot
 	{
 		this.userName = userName;
 		this.content = "outdoors";
+		twitterList = new ArrayList<String>();
+		buildTwitterList();
 		HTMLList = new ArrayList<String>();
 		buildHTMLList();
 		keyboardMashList = new ArrayList<String>();
@@ -103,13 +106,21 @@ public class Chatbot
 		HTMLList.add("<I> sdadas </i>");
 		HTMLList.add("<P>");
 		HTMLList.add("<A HREF=\"sdfs.html\"> </a>");
+	
+
+	}
+
+	private void buildTwitterList()
+	{
+		twitterList.add("#dw35 f");
+		twitterList.add("@d4d sretsf");
 		
 	}
 
 	/**
 	 * * Checks the length of the supplied string. Returns false if the supplied
-	 * String is empty or null, otherwise returns true. * @param currentInput * @return
-	 * A true or false based on the length of the supplied String.
+	 * String is empty or null, otherwise returns true. * @param currentInput
+	 * * @return A true or false based on the length of the supplied String.
 	 */
 	public boolean lengthChecker(String currentInput)
 	{
@@ -249,21 +260,31 @@ public class Chatbot
 
 	public boolean twitterChecker(String input)
 	{
-		return false;
+		boolean hasTwitter = false;
+		
+		for(String currentTwitterCheck : twitterList)
+		{
+			if(input.contains(currentTwitterCheck))
+			{
+				hasTwitter = true;
+			}
+		}
+		
+		return hasTwitter;
 	}
 
-	public boolean HTMLChecker(String currentInput)
+	public boolean inputHTMLChecker(String currentInput)
 	{
 		boolean hasHTML = false;
-		
-		for(String currentHTMLCheck: HTMLList)
+
+		for (String currentHTMLCheck : HTMLList)
 		{
-			if(currentHTMLCheck.contains(currentInput))
+			if (currentHTMLCheck.equals(currentInput))
 			{
 				hasHTML = true;
 			}
 		}
-		
+
 		return hasHTML;
 	}
 
