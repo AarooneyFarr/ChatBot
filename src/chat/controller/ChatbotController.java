@@ -49,6 +49,10 @@ public class ChatbotController
 		{
 			checkedInput = "You are just smashing the keyboard!";
 		}
+		if(stupidBot.quitChecker(input))
+		{
+			System.exit(0);
+		}
 		if(checkedInput.length() == 0)
 		{
 			checkedInput = "I have no idea what you are talking about";

@@ -51,7 +51,8 @@ public class Chatbot
 		memesList.add("hotline bling");
 		memesList.add("left shark");
 		memesList.add("pope bars");
-		
+		memesList.add("crying jordan");
+		memesList.add("what my friends think i do");
 	}
 
 	private void buildPoliticalTopicsList()
@@ -74,11 +75,11 @@ public class Chatbot
 		politicalTopicList.add("oligarchy");
 		politicalTopicList.add("debate");
 		politicalTopicList.add("presidential");
-		politicalTopicList.add("voters");
+		politicalTopicList.add("Hillary");
 	}
 	private void buildKeyboardMashList()
 	{
-		keyboardMashList.add("S.D.F.");
+		keyboardMashList.add("sgh");
 		keyboardMashList.add("dfg");
 		keyboardMashList.add("sdf");
 		keyboardMashList.add("cvb");
@@ -245,7 +246,14 @@ public class Chatbot
 
 	public boolean quitChecker(String input)
 	{
-		return false;
+		boolean hasQuit = false;
+		
+		if(input.equals("quit"))
+		{
+			hasQuit = true;
+		}
+		
+		return hasQuit;
 	}
 
 	/**
