@@ -176,16 +176,16 @@ public class ChatbotTest
 	}
 	
 	@Test
-	public void testInputHTMLChecker()
+	public void testHTMLChecker()
 	{
-		assertFalse("Invalid tag fail", sampleBot.inputHTMLChecker("<>"));
-		assertFalse("Invalid tag fail", sampleBot.inputHTMLChecker("< >"));
-		assertTrue("Valid tag fail", sampleBot.inputHTMLChecker("<B>  </B>"));
-		assertFalse("Incomplete tag fail - closing tag not found", sampleBot.inputHTMLChecker("<B>  "));
-		assertTrue("Valid tag fail", sampleBot.inputHTMLChecker("<I> sdadas </i>"));
-		assertTrue("Valid tag fail - no closing P needed", sampleBot.inputHTMLChecker("<P>"));
-		assertTrue("Valid tag fail", sampleBot.inputHTMLChecker("<A HREF=\"sdfs.html\"> </a>"));
-		assertFalse("Incomplete tag fail - no = for the linked file", sampleBot.inputHTMLChecker("<A HREF> </a>"));
+		assertFalse("Invalid tag fail", sampleBot.HTMLChecker("<>"));
+		assertFalse("Invalid tag fail", sampleBot.HTMLChecker("< >"));
+		assertTrue("Valid tag fail", sampleBot.HTMLChecker("<B>  </B>"));
+		assertFalse("Incomplete tag fail - closing tag not found", sampleBot.HTMLChecker("<B>  "));
+		assertTrue("Valid tag fail", sampleBot.HTMLChecker("<I> sdadas </i>"));
+		assertTrue("Valid tag fail - no closing P needed", sampleBot.HTMLChecker("<P>"));
+		assertTrue("Valid tag fail", sampleBot.HTMLChecker("<A HREF=\"sdfs.html\"> </a>"));
+		assertFalse("Incomplete tag fail - no = for the linked file", sampleBot.HTMLChecker("<A HREF> </a>"));
 	}
 	
 	@Test
