@@ -12,17 +12,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import chat.controller.ChatController;
-import chat.view.ChatPanel;
+import chat.controller.ChatbotController;
+import chat.view.ChatFirstPanel;
 
 public class ChatPanelTest
 {
-	private ChatPanel basePanel;
+	private ChatFirstPanel basePanel;
 	
 	@Before
 	public void setUp() throws Exception
 	{
-		basePanel = new ChatPanel(new ChatController());
+		basePanel = new ChatFirstPanel(new ChatbotController());
 	}
 
 	@After

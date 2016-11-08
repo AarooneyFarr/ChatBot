@@ -15,7 +15,7 @@ public class ChatFrameTest
 	@Before
 	public void setUp() throws Exception
 	{
-		baseFrame = new ChatFrame(new ChatController());
+		baseFrame = new ChatFrame(new ChatbotController());
 	}
 
 	@After
@@ -36,7 +36,7 @@ public class ChatFrameTest
 	{
 		assertNotEquals("Title not specified", baseFrame.getTitle(), "");
 		assertTrue("Frame visibility incorrectly set",baseFrame.isVisible());
-		assertTrue("Incorrect base panel type",baseFrame.getContentPane() instanceof ChatPanel);
+		assertTrue("Incorrect base panel type",baseFrame.getContentPane() instanceof ChatFirstPanel);
 	}
 
 }
