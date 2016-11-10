@@ -8,13 +8,14 @@ public class ChatFrame extends JFrame
 {
 	private ChatbotController baseController;
 	private ChatFirstPanel appPanel;
+	
 
 	public ChatFrame(ChatbotController baseController)
 	{
 		super();
 		this.baseController = baseController;
 		appPanel = new ChatFirstPanel(baseController);
-
+	
 		setupFrame(800, 800);
 	}
 
@@ -24,5 +25,8 @@ public class ChatFrame extends JFrame
 		this.setTitle("JackBot");
 		this.setSize(new Dimension(frameWidth, frameHeight));
 		this.setVisible(true);
+		
 	}
+	
+	
 }

@@ -3,32 +3,28 @@ package chat.controller;
 import chat.model.Chatbot;
 import chat.view.ChatViewer;
 import chat.view.ChatFrame;
+import chat.view.ChatFirstPanel;
 
 public class ChatbotController
 {
 	private Chatbot stupidBot;
 	private ChatViewer display;
 	private ChatFrame appFrame;
-	
+	private ChatFirstPanel appPanel;
 
 	public ChatbotController()
 	{
 		stupidBot = new Chatbot("Jack");
 		display = new ChatViewer();
 		appFrame = new ChatFrame(this);
-
+		
 	}
 
 	public void start()
 	{
-		String response = "words";
+		
 
-		while (stupidBot.lengthChecker(response))
-		{
-			response = display.collectResponse("What do you want to talk about?");
-			String checkedInputResponse = useChatbotCheckers(response);
-			display.displayMessage(checkedInputResponse);
-		}
+		
 	}
 	
 	private String useChatbotCheckers(String input)
@@ -68,11 +64,34 @@ public class ChatbotController
 		{
 			checkedInput = "I have no idea what you are talking about";
 		}
+		else
+		{
+			checkedInput = "I have no idea what you are talking about.";
+		}
 		
 		return checkedInput;
 	}
 	
-	public Chatbot getChatbot()
+	public void respondToUser(String userInput)
+	{
+		
+		if(stupidBot.lengthChecker(userInput))
+		{
+			
+			String response = useChatbotCheckers(userInput);
+			appPanel.responseText.setText(response);
+
+		
+		}
+		else
+		{
+			appPanel.responseText.setText("What do you want to talk about?");
+
+		}
+		
+		
+	}
+	/*public Chatbot getChatbot()
 	{
 		return Chatbot;
 	}
@@ -80,5 +99,5 @@ public class ChatbotController
 	public ChatFrame getBaseFrame()
 	{
 		return ChatFrame;
-	}
+	}*/
 }

@@ -1,5 +1,6 @@
 package chat.view;
 
+import chat.view.ChatFrame;
 import javax.swing.JPanel;
 import chat.controller.ChatbotController;
 import java.awt.Color;
@@ -7,72 +8,92 @@ import javax.swing.JButton;
 import javax.swing.SpringLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-//import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import java.awt.Component;
+import java.awt.Rectangle;
+import javax.swing.JLabel;
+import chat.model.Chatbot;
 
 public class ChatFirstPanel extends JPanel
 {
 	private ChatbotController baseController;
-	private SpringLayout baseLayout;
-	//private JTextArea input;
+	private Chatbot dumbBot;
 	private JButton enterButton;
-	private JButton dumbButton;
-	private JButton dumbButton2;
-	private JButton dumbButton3;
-	
+	public JTextField input;
+	private String userResponse;
+	public JLabel responseText;
+
 	public ChatFirstPanel(ChatbotController baseController)
 	{
 		super();
 		this.baseController = baseController;
-		baseLayout = new SpringLayout();
-		//input = new JTextArea("type here");
-		dumbButton2 = new JButton("dumb2");
+		userResponse = "";
+		dumbBot = new Chatbot("Jack");
+		input = new JTextField( "",10);
+		responseText = new JLabel("What do you want to talk about?");
+
 		enterButton = new JButton("enter");
-		
-		
-		dumbButton = new JButton("dumb");
-		dumbButton3 = new JButton("dumb3");
-		
-		
-		
+
 		setupListeners();
 		setupPanel();
 		setupLayout();
 	}
-	
+
 	public void setupLayout()
 	{
-		
-		baseLayout.putConstraint(SpringLayout.WEST, enterButton, 6, SpringLayout.EAST, dumbButton);
-		baseLayout.putConstraint(SpringLayout.SOUTH, enterButton, 0, SpringLayout.SOUTH, dumbButton);
-		baseLayout.putConstraint(SpringLayout.WEST, dumbButton, 83, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.SOUTH, dumbButton, -51, SpringLayout.SOUTH, this);
-		
-		baseLayout.putConstraint(SpringLayout.NORTH, dumbButton2, 0, SpringLayout.NORTH, enterButton);
-		baseLayout.putConstraint(SpringLayout.WEST, dumbButton2, 6, SpringLayout.EAST, enterButton);
-		baseLayout.putConstraint(SpringLayout.WEST, dumbButton3, 0, SpringLayout.WEST, enterButton);
-		baseLayout.putConstraint(SpringLayout.SOUTH, dumbButton3, -10, SpringLayout.SOUTH, this);
-		
+		responseText.setBounds(310, 243, 200, 50);
+		input.setBounds(338, 286, 122, 28);
+		enterButton.setBounds(362, 386, 75, 28);
+
 	}
 
 	public void setupPanel()
 	{
-		this.setLayout(baseLayout);
 		this.setBackground(Color.GREEN);
-		//this.add(input);
+		setLayout(null);
+		
 		this.add(enterButton);
-		this.add(dumbButton);
-		this.add(dumbButton2);
-		this.add(dumbButton3);
+
+		this.add(input);
+		input.setFocusable(true);
+
+		this.add(responseText);
+
 	}
-	
+
 	public void setupListeners()
 	{
 		enterButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent click)
 			{
-				setBackground(Color.BLUE);
+				if(dumbBot.lengthChecker(input.getText()))
+				{
+					
+				
+				userResponse = input.getText();
+				baseController.respondToUser(userResponse);
+				}
 			}
 		});
+
+		input.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				
+
+				if(dumbBot.lengthChecker(input.getText()))
+				{
+				baseController.respondToUser(input.getText());
+				}
+			}
+		});
+
+	}
+
+	public String getUserResponse()
+	{
+		return userResponse;
 	}
 }
