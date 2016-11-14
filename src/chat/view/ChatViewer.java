@@ -19,7 +19,7 @@ public class ChatViewer
 
 		String response = "";
 
-		response = JOptionPane.showInputDialog(null, question, windowMessage, JOptionPane.INFORMATION_MESSAGE, chatIcon, null, "Type here please").toString();
+		response = JOptionPane.showInputDialog(null, question, windowMessage, JOptionPane.INFORMATION_MESSAGE, chatIcon, null, "Type here please") + "";
 
 		return response;
 	}

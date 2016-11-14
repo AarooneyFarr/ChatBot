@@ -7,14 +7,14 @@ import java.awt.Dimension;
 public class ChatFrame extends JFrame
 {
 	private ChatbotController baseController;
-	private ChatFirstPanel appPanel;
+	private ChatPanel appPanel;
 	
 
 	public ChatFrame(ChatbotController baseController)
 	{
 		super();
 		this.baseController = baseController;
-		appPanel = new ChatFirstPanel(baseController);
+		appPanel = new ChatPanel(baseController);
 	
 		setupFrame(800, 800);
 	}
