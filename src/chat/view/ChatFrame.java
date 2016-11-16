@@ -1,7 +1,9 @@
 package chat.view;
 
 import javax.swing.JFrame;
+
 import chat.controller.ChatbotController;
+
 import java.awt.Dimension;
 
 public class ChatFrame extends JFrame
@@ -17,6 +19,7 @@ public class ChatFrame extends JFrame
 		appPanel = new ChatPanel(baseController);
 	
 		setupFrame(800, 800);
+		setupListeners();
 	}
 
 	private void setupFrame(int frameWidth, int frameHeight)
@@ -26,6 +29,22 @@ public class ChatFrame extends JFrame
 		this.setSize(new Dimension(frameWidth, frameHeight));
 		this.setVisible(true);
 		
+	}
+	
+	private void setupListeners()
+	{
+		this.addWindowListener(new java.awt.event.WindowAdapter()
+		{
+			
+		@Override
+		public void windowClosing(java.awt.event.WindowEvent windowEvent)
+		{
+			System.exit(0);
+		}
+				
+			
+				
+		});
 	}
 	
 	

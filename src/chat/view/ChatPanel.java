@@ -101,6 +101,7 @@ public class ChatPanel extends JPanel
 					
 					chatDisplay.append("\n"+"You said: " + userResponse +"\n"+ "Chatbot says: " + chatbotResponse);
 					System.out.println(userResponse);
+					chatField.setText("");
 
 				}
 			}
@@ -115,7 +116,7 @@ public class ChatPanel extends JPanel
 				
 				chatDisplay.append("\n"+"You said: " + userResponse +"\n"+ "Chatbot says: " + chatbotResponse);
 				System.out.println(userResponse);
-
+				chatField.setText("");
 			}
 
 		});

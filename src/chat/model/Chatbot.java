@@ -1,6 +1,9 @@
 package chat.model;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * Base version of the 2015 Chatbot class. Only stub methods are provided.
@@ -16,6 +19,8 @@ public class Chatbot
 	private ArrayList<String> twitterList;
 	private String userName;
 	private String content;
+	private File memes;
+	private Scanner memeScanner;
 
 	/**
 	 * * Creates an instance of the Chatbot with the supplied username. * @param
@@ -32,6 +37,18 @@ public class Chatbot
 		keyboardMashList = new ArrayList<String>();
 		buildKeyboardMashList();
 		memesList = new ArrayList<String>();
+		
+
+		memes = new File("memes.txt");
+		try
+		{
+			memeScanner = new Scanner(memes);
+		}
+		catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		buildMemesList();
 		politicalTopicList = new ArrayList<String>();
 		buildPoliticalTopicsList();
@@ -40,25 +57,29 @@ public class Chatbot
 
 	private void buildMemesList()
 	{
-		memesList.add("doge");
-		memesList.add("cute animals");
-		memesList.add("grumpy cat");
-		memesList.add("dat boi");
-		memesList.add("willy wonka");
-		memesList.add("harambe");
-		memesList.add("john cena");
-		memesList.add("success kid");
-		memesList.add("little fatty");
-		memesList.add("chuck norris");
-		memesList.add("bad luck brian");
-		memesList.add("ridiculously photogenic guy");
-		memesList.add("sudden clarity clarence");
-		memesList.add("skeptical baby");
-		memesList.add("hotline bling");
-		memesList.add("left shark");
-		memesList.add("pope bars");
-		memesList.add("crying jordan");
-		memesList.add("what my friends think i do");
+		while (memeScanner.hasNextLine())
+		{
+			memesList.add(memeScanner.nextLine());
+		}
+		// memesList.add("doge");
+		// memesList.add("cute animals");
+		// memesList.add("grumpy cat");
+		// memesList.add("dat boi");
+		// memesList.add("willy wonka");
+		// memesList.add("harambe");
+		// memesList.add("john cena");
+		// memesList.add("success kid");
+		// memesList.add("little fatty");
+		// memesList.add("chuck norris");
+		// memesList.add("bad luck brian");
+		// memesList.add("ridiculously photogenic guy");
+		// memesList.add("sudden clarity clarence");
+		// memesList.add("skeptical baby");
+		// memesList.add("hotline bling");
+		// memesList.add("left shark");
+		// memesList.add("pope bars");
+		// memesList.add("crying jordan");
+		// memesList.add("what my friends think i do");
 	}
 
 	private void buildPoliticalTopicsList()
@@ -106,7 +127,6 @@ public class Chatbot
 		HTMLList.add("<I> sdadas </i>");
 		HTMLList.add("<P>");
 		HTMLList.add("<A HREF=\"sdfs.html\"> </a>");
-	
 
 	}
 
@@ -114,13 +134,13 @@ public class Chatbot
 	{
 		twitterList.add("#dw35 f");
 		twitterList.add("@d4d sretsf");
-		
+
 	}
 
 	/**
 	 * * Checks the length of the supplied string. Returns false if the supplied
-	 * String is empty or null, otherwise returns true. * @param currentInput
-	 * * @return A true or false based on the length of the supplied String.
+	 * String is empty or null, otherwise returns true. * @param currentInput * @return
+	 * A true or false based on the length of the supplied String.
 	 */
 	public boolean lengthChecker(String currentInput)
 	{
@@ -145,9 +165,9 @@ public class Chatbot
 	public boolean contentChecker(String currentInput)
 	{
 		boolean hasContent = false;
-		
+
 		String tempInput = currentInput.toLowerCase();
-		
+
 		if (tempInput.contains(content.toLowerCase()))
 		{
 			hasContent = true;
@@ -263,15 +283,15 @@ public class Chatbot
 	public boolean twitterChecker(String input)
 	{
 		boolean hasTwitter = false;
-		
-		for(String currentTwitterCheck : twitterList)
+
+		for (String currentTwitterCheck : twitterList)
 		{
-			if(input.contains(currentTwitterCheck))
+			if (input.contains(currentTwitterCheck))
 			{
 				hasTwitter = true;
 			}
 		}
-		
+
 		return hasTwitter;
 	}
 

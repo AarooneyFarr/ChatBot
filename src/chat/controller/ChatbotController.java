@@ -54,6 +54,15 @@ public class ChatbotController
 		{
 			checkedInput = "You are trying to tweet using my dialog box!";
 		}
+		if(checkedInput.length() == 0)
+		{
+			checkedInput = "I cannot reply to nothing!";
+		}
+		if(stupidBot.lengthChecker(input))
+		{
+			checkedInput = "I cannot reply to nothing!";
+
+		}
 		if (stupidBot.quitChecker(input))
 		{
 			System.exit(0);
@@ -76,9 +85,5 @@ public class ChatbotController
 		return response;
 
 	}
-	/*
-	 * public Chatbot getChatbot() { return Chatbot; }
-	 * 
-	 * public ChatFrame getBaseFrame() { return ChatFrame; }
-	 */
+	
 }
