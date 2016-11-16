@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import chat.model.Chatbot;
+import java.awt.Color;
 
 public class ChatPanel extends JPanel
 {
@@ -16,7 +17,7 @@ public class ChatPanel extends JPanel
 	private JLabel chatIcon;
 	private SpringLayout baseLayout;
 	private JTextArea chatDisplay;
-	
+	private JScrollPane chatScroll;
 
 	public ChatPanel(ChatbotController baseController)
 	{
@@ -33,6 +34,10 @@ public class ChatPanel extends JPanel
 		
 
 		chatDisplay = new JTextArea(5, 25);
+		chatScroll = new JScrollPane(chatDisplay,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		baseLayout.putConstraint(SpringLayout.NORTH, chatScroll, 37, SpringLayout.SOUTH, chatIcon);
+		baseLayout.putConstraint(SpringLayout.SOUTH, chatScroll, 146, SpringLayout.SOUTH, chatIcon);
+		baseLayout.putConstraint(SpringLayout.EAST, chatScroll, 0, SpringLayout.EAST, chatField);
 		
 		setupChatDisplay();
 
@@ -48,7 +53,8 @@ public class ChatPanel extends JPanel
 		chatDisplay.setEnabled(false);
 		chatDisplay.setWrapStyleWord(true);
 		chatDisplay.setLineWrap(true);
-
+		chatDisplay.setDisabledTextColor(Color.BLACK);
+	
 	}
 
 	private void setupLayout()
@@ -75,7 +81,7 @@ public class ChatPanel extends JPanel
 
 		this.add(chatField);
 
-		this.add(chatDisplay);
+		this.add(chatScroll);
 
 		this.add(chatIcon);
 
@@ -91,7 +97,9 @@ public class ChatPanel extends JPanel
 				{
 
 					String userResponse = chatField.getText();
-					chatDisplay.setText(baseController.respondToUser(userResponse));
+					String chatbotResponse = baseController.respondToUser(userResponse);
+					
+					chatDisplay.append("\n"+"You said: " + userResponse +"\n"+ "Chatbot says: " + chatbotResponse);
 					System.out.println(userResponse);
 
 				}
@@ -103,8 +111,11 @@ public class ChatPanel extends JPanel
 			public void actionPerformed(ActionEvent event)
 			{
 				String userResponse = chatField.getText();
-				chatDisplay.setText(baseController.respondToUser(userResponse));
+				String chatbotResponse = baseController.respondToUser(userResponse);
+				
+				chatDisplay.append("\n"+"You said: " + userResponse +"\n"+ "Chatbot says: " + chatbotResponse);
 				System.out.println(userResponse);
+
 			}
 
 		});
