@@ -58,7 +58,7 @@ public class ChatbotController
 		{
 			checkedInput = "I cannot reply to nothing!";
 		}
-		if(stupidBot.lengthChecker(input))
+		if(stupidBot.lengthChecker(input)==false)
 		{
 			checkedInput = "I cannot reply to nothing!";
 
@@ -69,6 +69,7 @@ public class ChatbotController
 		}
 
 		return checkedInput;
+		
 	}
 
 	public String respondToUser(String userInput)

@@ -37,7 +37,6 @@ public class Chatbot
 		keyboardMashList = new ArrayList<String>();
 		buildKeyboardMashList();
 		memesList = new ArrayList<String>();
-		
 
 		memes = new File("memes.txt");
 		try
@@ -57,29 +56,19 @@ public class Chatbot
 
 	private void buildMemesList()
 	{
-		while (memeScanner.hasNextLine())
+		boolean listUpdate = false;
+		if (listUpdate == false)
 		{
-			memesList.add(memeScanner.nextLine());
+			while (memeScanner.hasNextLine())
+			{
+				memesList.add(memeScanner.nextLine());
+			}
+			for (String currentMeme : memesList)
+			{
+				System.out.println(currentMeme);
+			}
+			listUpdate = true;
 		}
-		// memesList.add("doge");
-		// memesList.add("cute animals");
-		// memesList.add("grumpy cat");
-		// memesList.add("dat boi");
-		// memesList.add("willy wonka");
-		// memesList.add("harambe");
-		// memesList.add("john cena");
-		// memesList.add("success kid");
-		// memesList.add("little fatty");
-		// memesList.add("chuck norris");
-		// memesList.add("bad luck brian");
-		// memesList.add("ridiculously photogenic guy");
-		// memesList.add("sudden clarity clarence");
-		// memesList.add("skeptical baby");
-		// memesList.add("hotline bling");
-		// memesList.add("left shark");
-		// memesList.add("pope bars");
-		// memesList.add("crying jordan");
-		// memesList.add("what my friends think i do");
 	}
 
 	private void buildPoliticalTopicsList()
