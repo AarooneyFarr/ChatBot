@@ -33,9 +33,10 @@ public class ChatPanel extends JPanel
 		chatButton = new JButton("enter");
 		
 
-		chatDisplay = new JTextArea(5, 25);
+		chatDisplay = new JTextArea("What do you want to talk about?");
 		chatScroll = new JScrollPane(chatDisplay,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		baseLayout.putConstraint(SpringLayout.NORTH, chatScroll, 37, SpringLayout.SOUTH, chatIcon);
+		baseLayout.putConstraint(SpringLayout.WEST, chatScroll, 0, SpringLayout.WEST, chatField);
 		baseLayout.putConstraint(SpringLayout.SOUTH, chatScroll, 146, SpringLayout.SOUTH, chatIcon);
 		baseLayout.putConstraint(SpringLayout.EAST, chatScroll, 0, SpringLayout.EAST, chatField);
 		

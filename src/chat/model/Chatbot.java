@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.*;
 
 /**
  * Base version of the 2015 Chatbot class. Only stub methods are provided.
@@ -21,6 +22,7 @@ public class Chatbot
 	private String content;
 	private File memes;
 	private Scanner memeScanner;
+	private String memeFileName;
 
 	/**
 	 * * Creates an instance of the Chatbot with the supplied username. * @param
@@ -37,8 +39,8 @@ public class Chatbot
 		keyboardMashList = new ArrayList<String>();
 		buildKeyboardMashList();
 		memesList = new ArrayList<String>();
-
-		memes = new File("memes.txt");
+		memeFileName = "memes.txt";
+		memes = new File(memeFileName);
 		try
 		{
 			memeScanner = new Scanner(memes);
@@ -54,11 +56,10 @@ public class Chatbot
 
 	}
 
-	private void buildMemesList()
+	public void buildMemesList()
 	{
-		boolean listUpdate = false;
-		if (listUpdate == false)
-		{
+		memesList.clear();
+		
 			while (memeScanner.hasNextLine())
 			{
 				memesList.add(memeScanner.nextLine());
@@ -67,8 +68,28 @@ public class Chatbot
 			{
 				System.out.println(currentMeme);
 			}
-			listUpdate = true;
+			
+	}
+
+	public void addToFile(String item, String fileName )
+	{
+		if (!item.equals("null"))
+		{
+			try (FileWriter fw = new FileWriter(fileName, true); BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw))
+			{
+				out.println("\n"+item);
+
+			}
+			catch (IOException e)
+			{
+				// exception handling left as an exercise for the reader
+			}
 		}
+		else
+		{
+			
+		}
+
 	}
 
 	private void buildPoliticalTopicsList()
