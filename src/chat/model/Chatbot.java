@@ -13,15 +13,54 @@ import java.io.*;
  */
 public class Chatbot
 {
+	/**
+	 * List of memes
+	 */
 	private ArrayList<String> memesList;
+	
+	/**
+	 * list of political topics
+	 */
 	private ArrayList<String> politicalTopicList;
+	
+	/**
+	 * list of Strings that could be interpreted as keyboard mashing
+	 */
 	private ArrayList<String> keyboardMashList;
+	
+	/**
+	 * list of Strings that could be interpreted as HTML
+	 */
 	private ArrayList<String> HTMLList;
+	
+	/**
+	 * list of Strings that could be interpreted as twitter jargon
+	 */
 	private ArrayList<String> twitterList;
+	
+	/**
+	 * variable indicating the current username
+	 */
 	private String userName;
+	
+	/**
+	 * variable for specialized content
+	 */
 	private String content;
+	
+	/**
+	 * File storing current memes
+	 */
 	private File memes;
+	
+	/** 
+	 * Scanner for the meme file
+	 */
 	private Scanner memeScanner;
+	
+	/**
+	 * Variable for the meme file location
+	 */
 	private String memeFileName;
 
 	/**
@@ -55,7 +94,10 @@ public class Chatbot
 		buildPoliticalTopicsList();
 
 	}
-
+	
+	/**
+	 * Reads a list from the memes.txt file
+	 */
 	public void buildMemesList()
 	{
 		memesList.clear();
@@ -70,7 +112,12 @@ public class Chatbot
 			}
 			
 	}
-
+	
+	/**
+	 * Adds a word/phrase to a file list
+	 * @param item word/phrase to be added
+	 * @param fileName The name of the file the item is top be added to 
+	 */
 	public void addToFile(String item, String fileName )
 	{
 		if (!item.equals("null"))
@@ -92,6 +139,9 @@ public class Chatbot
 
 	}
 
+	/**
+	 * builds the static political topics list
+	 */
 	private void buildPoliticalTopicsList()
 	{
 		politicalTopicList.add("Democrat");
@@ -115,6 +165,9 @@ public class Chatbot
 		politicalTopicList.add("Hillary");
 	}
 
+	/**
+	 * builds the static keyboardMashList
+	 */
 	private void buildKeyboardMashList()
 	{
 		keyboardMashList.add("sgh");
@@ -131,6 +184,9 @@ public class Chatbot
 		keyboardMashList.add("zxcv");
 	}
 
+	/**
+	 * builds the static HTML list
+	 */
 	private void buildHTMLList()
 	{
 		HTMLList.add("<B>  </B>");
@@ -140,6 +196,9 @@ public class Chatbot
 
 	}
 
+	/**
+	 * builds the static twitter list
+	 */
 	private void buildTwitterList()
 	{
 		twitterList.add("#dw35 f");
@@ -270,10 +329,10 @@ public class Chatbot
 	}
 
 	/**
-	 * empty parameter right now
+	 * Returns true if input matches an item from the keyboard mash checker list
 	 * 
 	 * @param input
-	 * @return
+	 * @return Returns boolean checking if item is in keyboardMashList
 	 */
 	public boolean keyboardMashChecker(String currentInput)
 	{
@@ -290,6 +349,11 @@ public class Chatbot
 		return hasKeyboardMash;
 	}
 
+	/**
+	 * Returns true if input matches an item from the twitterList
+	 * @param input
+	 * @return Returns a boolean checking if an item is in twitterList
+	 */
 	public boolean twitterChecker(String input)
 	{
 		boolean hasTwitter = false;
@@ -305,6 +369,11 @@ public class Chatbot
 		return hasTwitter;
 	}
 
+	/**
+	 * Returns true if input matches an item from the HTMLList
+	 * @param currentInput
+	 * @return Returns a boolean checking if an item is in HTMLList
+	 */
 	public boolean inputHTMLChecker(String currentInput)
 	{
 		boolean hasHTML = false;
@@ -320,6 +389,11 @@ public class Chatbot
 		return hasHTML;
 	}
 
+	/**
+	 * Checks to see if User would like to quit the program
+	 * @param input
+	 * @return Returns a boolean checking if the user has entered "quit"
+	 */
 	public boolean quitChecker(String input)
 	{
 		boolean hasQuit = false;

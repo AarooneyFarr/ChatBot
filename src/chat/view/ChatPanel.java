@@ -10,15 +10,50 @@ import java.awt.Color;
 
 public class ChatPanel extends JPanel
 {
+	/**
+	 * ChatbotController used by the Panel
+	 */
 	private ChatbotController baseController;
+	
+	/**
+	 * Chatbot used by the Panel
+	 */
 	private Chatbot dumbBot;
+	
+	/**
+	 * Button used to enter
+	 */
 	private JButton chatButton;
+	
+	/**
+	 * text field used by the panel
+	 */
 	public JTextField chatField;
+	
+	/**
+	 * Icon used in the panel
+	 */
 	private JLabel chatIcon;
+	
+	/**
+	 * Layout used by the panel
+	 */
 	private SpringLayout baseLayout;
+	
+	/**
+	 * JTextArea used in the panel
+	 */
 	private JTextArea chatDisplay;
+	
+	/**
+	 * Scroll panel used in the panel
+	 */
 	private JScrollPane chatScroll;
 
+	/**
+	 * Constructor for the type JPanel
+	 * @param baseController ChabotController used by the Panel
+	 */
 	public ChatPanel(ChatbotController baseController)
 	{
 		super();
@@ -35,10 +70,7 @@ public class ChatPanel extends JPanel
 
 		chatDisplay = new JTextArea("What do you want to talk about?");
 		chatScroll = new JScrollPane(chatDisplay,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		baseLayout.putConstraint(SpringLayout.NORTH, chatScroll, 37, SpringLayout.SOUTH, chatIcon);
-		baseLayout.putConstraint(SpringLayout.WEST, chatScroll, 0, SpringLayout.WEST, chatField);
-		baseLayout.putConstraint(SpringLayout.SOUTH, chatScroll, 146, SpringLayout.SOUTH, chatIcon);
-		baseLayout.putConstraint(SpringLayout.EAST, chatScroll, 0, SpringLayout.EAST, chatField);
+		
 		
 		setupChatDisplay();
 
@@ -48,6 +80,9 @@ public class ChatPanel extends JPanel
 
 	}
 
+	/**
+	 * Sets up JTextArea named chatDisplay
+	 */
 	private void setupChatDisplay()
 	{
 		chatDisplay.setEditable(false);
@@ -58,6 +93,9 @@ public class ChatPanel extends JPanel
 	
 	}
 
+	/**
+	 * Sets up the layout of the Panel
+	 */
 	private void setupLayout()
 	{
 		baseLayout.putConstraint(SpringLayout.NORTH, chatIcon, 34, SpringLayout.NORTH, this);
@@ -68,14 +106,21 @@ public class ChatPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.WEST, chatDisplay, 0, SpringLayout.WEST, chatField);
 		baseLayout.putConstraint(SpringLayout.SOUTH, chatDisplay, -71, SpringLayout.NORTH, chatField);
 		baseLayout.putConstraint(SpringLayout.WEST, chatField, 241, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, chatScroll, 37, SpringLayout.SOUTH, chatIcon);
+		baseLayout.putConstraint(SpringLayout.WEST, chatScroll, 0, SpringLayout.WEST, chatField);
+		baseLayout.putConstraint(SpringLayout.SOUTH, chatScroll, 146, SpringLayout.SOUTH, chatIcon);
+		baseLayout.putConstraint(SpringLayout.EAST, chatScroll, 0, SpringLayout.EAST, chatField);
 
 
 
 	}
 
+	/**
+	 * Sets up the Panel and adds gui components
+	 */
 	private void setupPanel()
 	{
-		this.setBackground(Color.GREEN);
+		this.setBackground(Color.LIGHT_GRAY);
 		setLayout(baseLayout);
 
 		this.add(chatButton);
@@ -88,6 +133,9 @@ public class ChatPanel extends JPanel
 
 	}
 
+	/**
+	 * Adds Listeners for gui components and the JTextArea
+	 */
 	private void setupListeners()
 	{
 		chatButton.addActionListener(new ActionListener()

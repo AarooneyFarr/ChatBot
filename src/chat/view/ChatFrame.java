@@ -8,10 +8,20 @@ import java.awt.Dimension;
 
 public class ChatFrame extends JFrame
 {
+	/**
+	 * instance of the ChatbotController used in ChatFrame
+	 */
 	private ChatbotController baseController;
+	
+	/**
+	 * instance of the Panel used in ChatFrame
+	 */
 	private ChatPanel appPanel;
 	
-
+	/**
+	 * Constructor for Chatframe, instantiates all variables
+	 * @param baseController Controller used in ChatFrame
+	 */
 	public ChatFrame(ChatbotController baseController)
 	{
 		super();
@@ -22,6 +32,11 @@ public class ChatFrame extends JFrame
 		setupListeners();
 	}
 
+	/**
+	 * Sets up the initial Frame
+	 * @param frameWidth Sets width of the Frame
+	 * @param frameHeight Sets Height of the Frame
+	 */
 	private void setupFrame(int frameWidth, int frameHeight)
 	{
 		this.setContentPane(appPanel);
@@ -31,6 +46,9 @@ public class ChatFrame extends JFrame
 		
 	}
 	
+	/**
+	 * Adds all Listeners
+	 */
 	private void setupListeners()
 	{
 		this.addWindowListener(new java.awt.event.WindowAdapter()

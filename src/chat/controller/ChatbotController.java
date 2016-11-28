@@ -7,10 +7,24 @@ import chat.view.ChatPanel;
 
 public class ChatbotController
 {
+	/**
+	 * instance of Chatbot used in the controller
+	 */
 	private Chatbot stupidBot;
+	
+	/**
+	 * instance of chatViewer used in the controller
+	 */
 	private ChatViewer display;
+	
+	/**
+	 * instance of ChatFrame used in the controller
+	 */
 	private ChatFrame appFrame;
 
+	/**
+	 * Instantiates all variables for the Chatbot Controller
+	 */
 	public ChatbotController()
 	{
 		stupidBot = new Chatbot("Jack");
@@ -19,11 +33,19 @@ public class ChatbotController
 
 	}
 
+	/**
+	 * Method called in the runner
+	 */
 	public void start()
 	{
 		
 	}
 
+	/**
+	 * Returns a pre-determined response based on the supplied string
+	 * @param input User input
+	 * @return Chatbot response
+	 */
 	private String useChatbotCheckers(String input)
 
 	{
@@ -79,6 +101,11 @@ public class ChatbotController
 
 	}
 
+	/**
+	 * Sets up a public response method
+	 * @param userInput 
+	 * @return Chatbot response
+	 */
 	public String respondToUser(String userInput)
 	{
 		String response = "";
@@ -94,6 +121,10 @@ public class ChatbotController
 
 	}
 
+	/**
+	 * Generates a random topic 
+	 * @return random topic
+	 */
 	private String randomTopicGenerator()
 	{
 		String randomTopic = "";
@@ -129,4 +160,23 @@ public class ChatbotController
 		}
 		return randomTopic;
 	}
+
+	/**
+	 * Getter for the ChatFrame
+	 * @return ChatFrame
+	 */
+	public ChatFrame getBaseFrame(){
+		return appFrame;
+	}
+	
+	/**
+	 * Getter for the Chatbot
+	 * @return
+	 */
+	public Chatbot getChatbot()
+	{
+		return stupidBot;
+	}
+
+
 }
