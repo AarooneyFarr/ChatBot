@@ -1,6 +1,10 @@
 package chat.model;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.*;
 
 /**
  * Base version of the 2015 Chatbot class. Only stub methods are provided.
@@ -9,13 +13,55 @@ import java.util.ArrayList;
  */
 public class Chatbot
 {
+	/**
+	 * List of memes
+	 */
 	private ArrayList<String> memesList;
+	
+	/**
+	 * list of political topics
+	 */
 	private ArrayList<String> politicalTopicList;
+	
+	/**
+	 * list of Strings that could be interpreted as keyboard mashing
+	 */
 	private ArrayList<String> keyboardMashList;
+	
+	/**
+	 * list of Strings that could be interpreted as HTML
+	 */
 	private ArrayList<String> HTMLList;
+	
+	/**
+	 * list of Strings that could be interpreted as twitter jargon
+	 */
 	private ArrayList<String> twitterList;
+	
+	/**
+	 * variable indicating the current username
+	 */
 	private String userName;
+	
+	/**
+	 * variable for specialized content
+	 */
 	private String content;
+	
+	/**
+	 * File storing current memes
+	 */
+	private File memes;
+	
+	/** 
+	 * Scanner for the meme file
+	 */
+	private Scanner memeScanner;
+	
+	/**
+	 * Variable for the meme file location
+	 */
+	private String memeFileName;
 
 	/**
 	 * * Creates an instance of the Chatbot with the supplied username. * @param
@@ -32,35 +78,70 @@ public class Chatbot
 		keyboardMashList = new ArrayList<String>();
 		buildKeyboardMashList();
 		memesList = new ArrayList<String>();
+		memeFileName = "memes.txt";
+		memes = new File(memeFileName);
+		try
+		{
+			memeScanner = new Scanner(memes);
+		}
+		catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		buildMemesList();
 		politicalTopicList = new ArrayList<String>();
 		buildPoliticalTopicsList();
 
 	}
-
-	private void buildMemesList()
+	
+	/**
+	 * Reads a list from the memes.txt file
+	 */
+	public void buildMemesList()
 	{
-		memesList.add("doge");
-		memesList.add("cute animals");
-		memesList.add("grumpy cat");
-		memesList.add("dat boi");
-		memesList.add("willy wonka");
-		memesList.add("harambe");
-		memesList.add("john cena");
-		memesList.add("success kid");
-		memesList.add("little fatty");
-		memesList.add("chuck norris");
-		memesList.add("bad luck brian");
-		memesList.add("ridiculously photogenic guy");
-		memesList.add("sudden clarity clarence");
-		memesList.add("skeptical baby");
-		memesList.add("hotline bling");
-		memesList.add("left shark");
-		memesList.add("pope bars");
-		memesList.add("crying jordan");
-		memesList.add("what my friends think i do");
+		memesList.clear();
+		
+			while (memeScanner.hasNextLine())
+			{
+				memesList.add(memeScanner.nextLine());
+			}
+			for (String currentMeme : memesList)
+			{
+				System.out.println(currentMeme);
+			}
+			
+	}
+	
+	/**
+	 * Adds a word/phrase to a file list
+	 * @param item word/phrase to be added
+	 * @param fileName The name of the file the item is top be added to 
+	 */
+	public void addToFile(String item, String fileName )
+	{
+		if (!item.equals("null"))
+		{
+			try (FileWriter fw = new FileWriter(fileName, true); BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw))
+			{
+				out.println("\n"+item);
+
+			}
+			catch (IOException e)
+			{
+				// exception handling left as an exercise for the reader
+			}
+		}
+		else
+		{
+			
+		}
+
 	}
 
+	/**
+	 * builds the static political topics list
+	 */
 	private void buildPoliticalTopicsList()
 	{
 		politicalTopicList.add("Democrat");
@@ -84,6 +165,9 @@ public class Chatbot
 		politicalTopicList.add("Hillary");
 	}
 
+	/**
+	 * builds the static keyboardMashList
+	 */
 	private void buildKeyboardMashList()
 	{
 		keyboardMashList.add("sgh");
@@ -100,27 +184,32 @@ public class Chatbot
 		keyboardMashList.add("zxcv");
 	}
 
+	/**
+	 * builds the static HTML list
+	 */
 	private void buildHTMLList()
 	{
 		HTMLList.add("<B>  </B>");
 		HTMLList.add("<I> sdadas </i>");
 		HTMLList.add("<P>");
 		HTMLList.add("<A HREF=\"sdfs.html\"> </a>");
-	
 
 	}
 
+	/**
+	 * builds the static twitter list
+	 */
 	private void buildTwitterList()
 	{
 		twitterList.add("#dw35 f");
 		twitterList.add("@d4d sretsf");
-		
+
 	}
 
 	/**
 	 * * Checks the length of the supplied string. Returns false if the supplied
-	 * String is empty or null, otherwise returns true. * @param currentInput
-	 * * @return A true or false based on the length of the supplied String.
+	 * String is empty or null, otherwise returns true. * @param currentInput * @return
+	 * A true or false based on the length of the supplied String.
 	 */
 	public boolean lengthChecker(String currentInput)
 	{
@@ -145,9 +234,9 @@ public class Chatbot
 	public boolean contentChecker(String currentInput)
 	{
 		boolean hasContent = false;
-		
+
 		String tempInput = currentInput.toLowerCase();
-		
+
 		if (tempInput.contains(content.toLowerCase()))
 		{
 			hasContent = true;
@@ -240,10 +329,10 @@ public class Chatbot
 	}
 
 	/**
-	 * empty parameter right now
+	 * Returns true if input matches an item from the keyboard mash checker list
 	 * 
 	 * @param input
-	 * @return
+	 * @return Returns boolean checking if item is in keyboardMashList
 	 */
 	public boolean keyboardMashChecker(String currentInput)
 	{
@@ -260,21 +349,31 @@ public class Chatbot
 		return hasKeyboardMash;
 	}
 
+	/**
+	 * Returns true if input matches an item from the twitterList
+	 * @param input
+	 * @return Returns a boolean checking if an item is in twitterList
+	 */
 	public boolean twitterChecker(String input)
 	{
 		boolean hasTwitter = false;
-		
-		for(String currentTwitterCheck : twitterList)
+
+		for (String currentTwitterCheck : twitterList)
 		{
-			if(input.contains(currentTwitterCheck))
+			if (input.contains(currentTwitterCheck))
 			{
 				hasTwitter = true;
 			}
 		}
-		
+
 		return hasTwitter;
 	}
 
+	/**
+	 * Returns true if input matches an item from the HTMLList
+	 * @param currentInput
+	 * @return Returns a boolean checking if an item is in HTMLList
+	 */
 	public boolean inputHTMLChecker(String currentInput)
 	{
 		boolean hasHTML = false;
@@ -290,6 +389,11 @@ public class Chatbot
 		return hasHTML;
 	}
 
+	/**
+	 * Checks to see if User would like to quit the program
+	 * @param input
+	 * @return Returns a boolean checking if the user has entered "quit"
+	 */
 	public boolean quitChecker(String input)
 	{
 		boolean hasQuit = false;
