@@ -80,11 +80,11 @@ public class ChatbotController
 		}
 		if (checkedInput.length() == 0)
 		{
-			checkedInput = "I cannot reply to nothing!";
+			checkedInput = "I'm Frickin starving!";
 		}
 		if (stupidBot.lengthChecker(input) == false)
 		{
-			checkedInput = "I cannot reply to nothing!";
+			checkedInput = "I'm Frickin starving!";
 
 		}
 		if (stupidBot.quitChecker(input))
