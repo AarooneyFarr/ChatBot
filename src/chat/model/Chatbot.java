@@ -374,13 +374,49 @@ public class Chatbot
 	 * @param currentInput
 	 * @return Returns a boolean checking if an item is in HTMLList
 	 */
-	public boolean inputHTMLChecker(String currentInput)
+	public boolean inputHTMLChecker(String input)
 	{
 		boolean hasHTML = false;
+		if(input == null || !input.contains("<"))
+			{
+				return hasHTML;
+			}
+		int firstOpen = input.indexOf("<");
+		int firstClose = input.indexOf(">",firstOpen);
+		int secondOpen = -9;
+		int secondClose = -9;
+		String tagText = "";
+		
+		if (input.contains("<>")|| input.indexOf("< >") > -1)
+			{
+				hasHTML = false;
+			}
+		if (input.toUpperCase().contains("<P>") || input.toLowerCase().contains("<br>"))
+			{
+				hasHTML = true;
+			}
+		else if(firstClose > firstOpen)
+			{
+				
+				tagText = input.substring(firstOpen + 1, firstClose).toLowerCase();
+				secondOpen = input.toLowerCase().indexOf("</" + tagText, firstClose);
+				
+				if(tagText.contains("a href=\""))
+					{
+						if(tagText.indexOf("\"", firstOpen + 10) >= 0)
+							{
+								String remainder = input.substring(firstClose);
+								if(remainder.indexOf("</a>") >= 0 )
+									{
+										hasHTML = true;
+									}
+							}
+					}
+			}
 
 		for (String currentHTMLCheck : HTMLList)
 		{
-			if (currentHTMLCheck.equals(currentInput))
+			if (currentHTMLCheck.equals(input))
 			{
 				hasHTML = true;
 			}
