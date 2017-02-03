@@ -54,8 +54,8 @@ public class ChatbotController
 		if (stupidBot.memeChecker(input))
 		{
 			checkedInput = "You like memes!";
-			stupidBot.addToFile(display.collectResponse("what is your favorite meme?"),"memes.txt");
-			stupidBot.buildMemesList();
+			//stupidBot.addToFile(display.collectResponse("what is your favorite meme?"),"memes.txt");
+			//stupidBot.buildMemesList();
 		}
 		if (stupidBot.politicalTopicChecker(input))
 		{

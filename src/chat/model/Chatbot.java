@@ -356,17 +356,32 @@ public class Chatbot
 	 */
 	public boolean twitterChecker(String input)
 	{
-		boolean hasTwitter = false;
-
-		for (String currentTwitterCheck : twitterList)
+		boolean looksTweetable = false;
+		if(input == null)
 		{
-			if (input.contains(currentTwitterCheck))
+			return false;
+		}
+		int indexOfHash = input.indexOf("#");
+		int indexOfAt = input.indexOf("@");
+		
+		if(indexOfHash >= 0 || indexOfAt >= 0)
+		{
+			if (indexOfHash != -1)
 			{
-				hasTwitter = true;
+				if (!input.substring(indexOfHash + 1, indexOfHash +2).equals(" "))
+				{
+					looksTweetable = true;
+				}
+			}
+			if(indexOfAt > -1)
+			{
+				if(input.indexOf(" ", indexOfAt) != indexOfAt+1)
+				{
+					looksTweetable = true;
+				}
 			}
 		}
-
-		return hasTwitter;
+		return looksTweetable;
 	}
 
 	/**
@@ -376,53 +391,60 @@ public class Chatbot
 	 */
 	public boolean inputHTMLChecker(String input)
 	{
-		boolean hasHTML = false;
+		boolean containsHTML = false;
 		if(input == null || !input.contains("<"))
-			{
-				return hasHTML;
-			}
+		{
+			return containsHTML;
+		}
 		int firstOpen = input.indexOf("<");
 		int firstClose = input.indexOf(">",firstOpen);
 		int secondOpen = -9;
 		int secondClose = -9;
 		String tagText = "";
+		if(input.contains("<>") || input.indexOf("< >") > -1)
+	{
+		containsHTML = false;
+	}
+	if(input.toUpperCase().contains("<P>") || input.toLowerCase().contains("<br>"))
+	{
+		containsHTML = true;
+	}
+	else if(firstClose > firstOpen)
+	{
+		tagText = input.substring(firstOpen +1, firstClose).toLowerCase();
+		secondOpen = input.toLowerCase().indexOf("</" + tagText, firstClose);
 		
-		if (input.contains("<>")|| input.indexOf("< >") > -1)
-			{
-				hasHTML = false;
-			}
-		if (input.toUpperCase().contains("<P>") || input.toLowerCase().contains("<br>"))
-			{
-				hasHTML = true;
-			}
-		else if(firstClose > firstOpen)
-			{
-				
-				tagText = input.substring(firstOpen + 1, firstClose).toLowerCase();
-				secondOpen = input.toLowerCase().indexOf("</" + tagText, firstClose);
-				
-				if(tagText.contains("a href=\""))
+		if(tagText.contains("a href=\""))
+		{
+			if(tagText.indexOf("\"", firstOpen+10) >= 0)
 					{
-						if(tagText.indexOf("\"", firstOpen + 10) >= 0)
-							{
-								String remainder = input.substring(firstClose);
-								if(remainder.indexOf("</a>") >= 0 )
-									{
-										hasHTML = true;
-									}
-							}
+						containsHTML = true;
 					}
 			}
-
-		for (String currentHTMLCheck : HTMLList)
-		{
-			if (currentHTMLCheck.equals(input))
+			else if(secondOpen >= 0)
 			{
-				hasHTML = true;
+				secondClose = input.indexOf(">", secondOpen + tagText.length());
+				String closingTag = input.toLowerCase().substring(secondOpen+2,secondClose);
+				if(secondClose >+ 0 && closingTag.equals(tagText))
+				{
+					containsHTML = true;
+				}
+				else
+				{
+					containsHTML = false;
+				}
+			}
+			else
+			{
+				containsHTML = false;
 			}
 		}
-
-		return hasHTML;
+		else 
+		{
+			containsHTML = false;
+		}
+	
+		return containsHTML;
 	}
 
 	/**
