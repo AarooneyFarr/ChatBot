@@ -283,7 +283,7 @@ public class Chatbot
 
 		for (String currentMeme : memesList)
 		{
-			if (currentInput.contains(currentMeme))
+			if (currentInput.equals(currentMeme))
 			{
 				hasMeme = true;
 			}

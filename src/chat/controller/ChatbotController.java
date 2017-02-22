@@ -84,7 +84,7 @@ public class ChatbotController
 		}
 		if (stupidBot.lengthChecker(input) == false)
 		{
-			checkedInput = "I'm Frickin starving!";
+			checkedInput = "Just because you think you are smart, you go and talk about some random bullcrap.";
 
 		}
 		if (stupidBot.quitChecker(input))
@@ -139,7 +139,7 @@ public class ChatbotController
 			randomTopic = "Are you a robot?";
 			break;
 		case 2:
-			randomTopic = "What is your favorite meme?";
+			randomTopic = "Get Click-Clacked?";
 			break;
 		case 3:
 			randomTopic = "Are you dead?";
