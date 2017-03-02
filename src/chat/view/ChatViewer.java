@@ -34,11 +34,9 @@ public class ChatViewer
 
 		String response = "";
 
-<<<<<<< HEAD
-		response = JOptionPane.showInputDialog(null, question, windowMessage, JOptionPane.INFORMATION_MESSAGE, chatIcon, null, "type here").toString();
-=======
+
 		response = JOptionPane.showInputDialog(null, question, windowMessage, JOptionPane.INFORMATION_MESSAGE, chatIcon, null, "Type here please")+"";
->>>>>>> origin/master
+
 
 		return response;
 	}

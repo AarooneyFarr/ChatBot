@@ -17,53 +17,63 @@ public class Chatbot
 	 * List of memes
 	 */
 	private ArrayList<String> memesList;
-	
+
 	/**
 	 * list of political topics
 	 */
 	private ArrayList<String> politicalTopicList;
-	
+
 	/**
 	 * list of Strings that could be interpreted as keyboard mashing
 	 */
 	private ArrayList<String> keyboardMashList;
-	
+
 	/**
 	 * list of Strings that could be interpreted as HTML
 	 */
 	private ArrayList<String> HTMLList;
-	
+
 	/**
 	 * list of Strings that could be interpreted as twitter jargon
 	 */
 	private ArrayList<String> twitterList;
-	
+
 	/**
 	 * variable indicating the current username
 	 */
 	private String userName;
-	
+
 	/**
 	 * variable for specialized content
 	 */
 	private String content;
-	
+
 	/**
 	 * File storing current memes
 	 */
 	private File memes;
-	
-	/** 
+
+	/**
 	 * Scanner for the meme file
 	 */
 	private Scanner memeScanner;
-	
+
 	/**
 	 * Variable for the meme file location
 	 */
 	private String memeFileName;
 
 	/**
+	 * Variables For the saving the conversations of chatbot.
+	**/
+	
+	private String conversationsFileName;
+	private Scanner conversationsScanner;
+	private File conversations;
+	private ArrayList<String> conversationsList;
+	
+	/**
+	 * 
 	 * * Creates an instance of the Chatbot with the supplied username. * @param
 	 * userName The username for the chatbot.
 	 */
@@ -77,6 +87,9 @@ public class Chatbot
 		buildHTMLList();
 		keyboardMashList = new ArrayList<String>();
 		buildKeyboardMashList();
+		politicalTopicList = new ArrayList<String>();
+		buildPoliticalTopicsList();
+
 		memesList = new ArrayList<String>();
 		memeFileName = "memes.txt";
 		memes = new File(memeFileName);
@@ -90,41 +103,71 @@ public class Chatbot
 			e.printStackTrace();
 		}
 		buildMemesList();
-		politicalTopicList = new ArrayList<String>();
-		buildPoliticalTopicsList();
+		
+		conversationsList = new ArrayList<String>();
+		conversationsFileName = "conversations.txt";
+		conversations = new File(conversationsFileName);
+		try
+		{
+			conversationsScanner = new Scanner(conversations);
+		}
+		catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		buildConversationsList();
 
 	}
 	
+	public ArrayList<String> getConversationsList()
+	{
+		return conversationsList;
+	}
+	
+	/**
+	 * Reads the conversation into a list
+	 */
+	public void buildConversationsList()
+	{
+		conversationsList.clear();
+		
+		while (conversationsScanner.hasNextLine())
+		{
+			conversationsList.add(conversationsScanner.nextLine());
+		}
+		
+	}
+
 	/**
 	 * Reads a list from the memes.txt file
 	 */
 	public void buildMemesList()
 	{
 		memesList.clear();
+
+		while (memeScanner.hasNextLine())
+		{
+			memesList.add(memeScanner.nextLine());
+		}
 		
-			while (memeScanner.hasNextLine())
-			{
-				memesList.add(memeScanner.nextLine());
-			}
-			for (String currentMeme : memesList)
-			{
-				System.out.println(currentMeme);
-			}
-			
+
 	}
-	
+
 	/**
 	 * Adds a word/phrase to a file list
-	 * @param item word/phrase to be added
-	 * @param fileName The name of the file the item is top be added to 
+	 * 
+	 * @param item
+	 *            word/phrase to be added
+	 * @param fileName
+	 *            The name of the file the item is top be added to
 	 */
-	public void addToFile(String item, String fileName )
+	public void addToFile(String item, String fileName)
 	{
 		if (!item.equals("null"))
 		{
 			try (FileWriter fw = new FileWriter(fileName, true); BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw))
 			{
-				out.println("\n"+item);
+				out.println(item);
 
 			}
 			catch (IOException e)
@@ -134,7 +177,7 @@ public class Chatbot
 		}
 		else
 		{
-			
+
 		}
 
 	}
@@ -208,8 +251,8 @@ public class Chatbot
 
 	/**
 	 * * Checks the length of the supplied string. Returns false if the supplied
-	 * String is empty or null, otherwise returns true. * @param currentInput * @return
-	 * A true or false based on the length of the supplied String.
+	 * String is empty or null, otherwise returns true. * @param currentInput
+	 * * @return A true or false based on the length of the supplied String.
 	 */
 	public boolean lengthChecker(String currentInput)
 	{
@@ -351,31 +394,32 @@ public class Chatbot
 
 	/**
 	 * Returns true if input matches an item from the twitterList
+	 * 
 	 * @param input
 	 * @return Returns a boolean checking if an item is in twitterList
 	 */
 	public boolean twitterChecker(String input)
 	{
 		boolean looksTweetable = false;
-		if(input == null)
+		if (input == null)
 		{
 			return false;
 		}
 		int indexOfHash = input.indexOf("#");
 		int indexOfAt = input.indexOf("@");
-		
-		if(indexOfHash >= 0 || indexOfAt >= 0)
+
+		if (indexOfHash >= 0 || indexOfAt >= 0)
 		{
 			if (indexOfHash != -1)
 			{
-				if (!input.substring(indexOfHash + 1, indexOfHash +2).equals(" "))
+				if (!input.substring(indexOfHash + 1, indexOfHash + 2).equals(" "))
 				{
 					looksTweetable = true;
 				}
 			}
-			if(indexOfAt > -1)
+			if (indexOfAt > -1)
 			{
-				if(input.indexOf(" ", indexOfAt) != indexOfAt+1)
+				if (input.indexOf(" ", indexOfAt) != indexOfAt + 1)
 				{
 					looksTweetable = true;
 				}
@@ -386,46 +430,47 @@ public class Chatbot
 
 	/**
 	 * Returns true if input matches an item from the HTMLList
+	 * 
 	 * @param currentInput
 	 * @return Returns a boolean checking if an item is in HTMLList
 	 */
 	public boolean inputHTMLChecker(String input)
 	{
 		boolean containsHTML = false;
-		if(input == null || !input.contains("<"))
+		if (input == null || !input.contains("<"))
 		{
 			return containsHTML;
 		}
 		int firstOpen = input.indexOf("<");
-		int firstClose = input.indexOf(">",firstOpen);
+		int firstClose = input.indexOf(">", firstOpen);
 		int secondOpen = -9;
 		int secondClose = -9;
 		String tagText = "";
-		if(input.contains("<>") || input.indexOf("< >") > -1)
-	{
-		containsHTML = false;
-	}
-	if(input.toUpperCase().contains("<P>") || input.toLowerCase().contains("<br>"))
-	{
-		containsHTML = true;
-	}
-	else if(firstClose > firstOpen)
-	{
-		tagText = input.substring(firstOpen +1, firstClose).toLowerCase();
-		secondOpen = input.toLowerCase().indexOf("</" + tagText, firstClose);
-		
-		if(tagText.contains("a href=\""))
+		if (input.contains("<>") || input.indexOf("< >") > -1)
 		{
-			if(tagText.indexOf("\"", firstOpen+10) >= 0)
-					{
-						containsHTML = true;
-					}
+			containsHTML = false;
+		}
+		if (input.toUpperCase().contains("<P>") || input.toLowerCase().contains("<br>"))
+		{
+			containsHTML = true;
+		}
+		else if (firstClose > firstOpen)
+		{
+			tagText = input.substring(firstOpen + 1, firstClose).toLowerCase();
+			secondOpen = input.toLowerCase().indexOf("</" + tagText, firstClose);
+
+			if (tagText.contains("a href=\""))
+			{
+				if (tagText.indexOf("\"", firstOpen + 10) >= 0)
+				{
+					containsHTML = true;
+				}
 			}
-			else if(secondOpen >= 0)
+			else if (secondOpen >= 0)
 			{
 				secondClose = input.indexOf(">", secondOpen + tagText.length());
-				String closingTag = input.toLowerCase().substring(secondOpen+2,secondClose);
-				if(secondClose >+ 0 && closingTag.equals(tagText))
+				String closingTag = input.toLowerCase().substring(secondOpen + 2, secondClose);
+				if (secondClose > +0 && closingTag.equals(tagText))
 				{
 					containsHTML = true;
 				}
@@ -439,16 +484,17 @@ public class Chatbot
 				containsHTML = false;
 			}
 		}
-		else 
+		else
 		{
 			containsHTML = false;
 		}
-	
+
 		return containsHTML;
 	}
 
 	/**
 	 * Checks to see if User would like to quit the program
+	 * 
 	 * @param input
 	 * @return Returns a boolean checking if the user has entered "quit"
 	 */

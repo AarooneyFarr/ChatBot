@@ -1,10 +1,6 @@
 package chat.view;
 
-<<<<<<< HEAD
-public class ChatFrame
-{
 
-=======
 import javax.swing.JFrame;
 
 import chat.controller.ChatbotController;
@@ -71,5 +67,5 @@ public class ChatFrame extends JFrame
 	}
 	
 	
->>>>>>> origin/master
+
 }

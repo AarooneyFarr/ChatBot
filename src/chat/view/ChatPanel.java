@@ -93,7 +93,7 @@ public class ChatPanel extends JPanel
 		chatDisplay.setWrapStyleWord(true);
 		chatDisplay.setLineWrap(true);
 		chatDisplay.setDisabledTextColor(Color.BLACK);
-		analyzeButton.setBounds(656, 34, 75, 71);
+		analyzeButton.setBounds(656, 34, 86, 71);
 		chatScroll.setBounds(241, 253, 310, 109);
 
 		
@@ -149,6 +149,34 @@ public class ChatPanel extends JPanel
 	 */
 	private void setupListeners()
 	{
+		loadButton.addActionListener(new ActionListener()
+				{
+				public void actionPerformed(ActionEvent click)
+				{
+//TODO add choice for custom conversation file
+					
+					Object[] options = {"Custom File", "Previous File"}; 
+					int response = JOptionPane.showOptionDialog(getParent(), "Load Custom File or previous Conversations", "Load Options", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, "Custom File");
+					if(response == 0)
+					{
+						
+
+					}
+					if (response == 1)
+					{
+						loadConversation();
+					}
+				}
+				});
+		
+		saveButton.addActionListener(new ActionListener()
+		{
+		public void actionPerformed(ActionEvent click)
+		{
+			//chatDisplay.getLineCount()
+		}
+		});
+		
 		chatButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent click)
@@ -182,5 +210,19 @@ public class ChatPanel extends JPanel
 		});
 
 	}
+	
+	private void loadConversation()
+	{
+		
+		chatDisplay.setText("");
+		
+		for(String currentLine : dumbBot.getConversationsList())
+		{
+			chatDisplay.append(currentLine + "\n");
+			
+			
+		}
+	}
+			
 
 }
