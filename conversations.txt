@@ -1,11 +1,13 @@
-test convo
-da;lsjfsjgha;kdsghsad;ghdslfdsal;gjfsaghasdlkgjhsadlkjfhas;djfh;sadlgj;lkdsafj
-sdaklfhlsdkajfhlsakdjfh
-ldsak
-s
-s
-s
-sasdf
-sadf
-sdf
+What do you want to talk about?
+You said: doge
+Chatbot says: You like memes! Are you bored?
+You said: Trump
+Chatbot says: You like politics! Are you a robot?
+You said: asd
+Chatbot says: I'm Frickin starving!
+You said: asdsdf
+Chatbot says: You are just smashing the keyboard!
+
+
+
 
