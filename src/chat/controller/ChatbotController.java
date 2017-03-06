@@ -4,6 +4,7 @@ import chat.model.Chatbot;
 import chat.view.ChatViewer;
 import chat.view.ChatFrame;
 import chat.view.ChatPanel;
+import chat.model.CTECTwitter;
 
 public class ChatbotController
 {
@@ -21,6 +22,7 @@ public class ChatbotController
 	 * instance of ChatFrame used in the controller
 	 */
 	private ChatFrame appFrame;
+	private CTECTwitter twitterBot;
 
 	/**
 	 * Instantiates all variables for the Chatbot Controller
@@ -28,8 +30,11 @@ public class ChatbotController
 	public ChatbotController()
 	{
 		stupidBot = new Chatbot("Jack");
+		twitterBot = new CTECTwitter(this);
+		// remember gui after model
 		display = new ChatViewer();
 		appFrame = new ChatFrame(this);
+		
 
 	}
 
@@ -159,6 +164,17 @@ public class ChatbotController
 
 		}
 		return randomTopic;
+	}
+	
+	public void handleErrors(Exception currentException)
+	{
+		display.displayMessage("An error has occurred. Details provided next");
+		display.displayMessage(currentException.getMessage());
+	}
+	
+	public void useTwitter(String text)
+	{
+		twitterBot.sendTweet(text);
 	}
 
 	/**
