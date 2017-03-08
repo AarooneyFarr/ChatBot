@@ -51,25 +51,27 @@ public class CTECTwitter
 					}
 			}
 		
-		private void createIgnoredWordList()
+		private String[] createIgnoredWordList()
 		{
+			
 			ignoredWords.clear();
 
 			while (ignoredScanner.hasNextLine())
 				{
 					ignoredWords.add(ignoredScanner.nextLine());
 				}
-
+			return null;
 		}
 
 		private void collectTweets(String username)
 		{
-			chatbotTwitter.searchUsers(username, arg1)
+			//chatbotTwitter.searchUsers(username, arg1)
 		}
 		
-		public String getMostCommonWord()
+		public String getMostCommonWord(String username)
 		{
+			String popularWord = "";
 			//TODO add full use method
-			return null;
+			return popularWord;
 		}
 	}

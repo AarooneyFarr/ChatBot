@@ -176,6 +176,14 @@ public class ChatbotController
 	{
 		twitterBot.sendTweet(text);
 	}
+	
+	public String searchTwitterUser(String username)
+	{
+		String searchResults = "";
+		searchResults = "The most popular word by user: " + username + " is.";
+		searchResults += twitterBot.getMostCommonWord(username);
+		return searchResults;
+	}
 
 	/**
 	 * Getter for the ChatFrame
