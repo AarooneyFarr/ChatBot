@@ -9,22 +9,25 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
+import twitter4j.Paging;
 
 public class CTECTwitter
 	{
 		private ChatbotController baseController;
 		private Twitter chatbotTwitter;
 		private List<Status> searchedTweets;
-		private List<String> ignoredWords;
+
 		private List<String> tweetedWords;
-		private Scanner ignoredScanner;
+
+		private List<List<String>> rankedWords;
 
 		public CTECTwitter(ChatbotController baseController)
 			{
 				this.baseController = baseController;
 				searchedTweets = new ArrayList<Status>();
-				ignoredWords = new ArrayList<String>();
+
 				tweetedWords = new ArrayList<String>();
+				rankedWords = new ArrayList<List<String>>();
 
 				this.chatbotTwitter = TwitterFactory.getSingleton();
 			}
@@ -47,39 +50,64 @@ public class CTECTwitter
 
 		private String[] createIgnoredWordArray()
 			{
-				try
-					{
-						ignoredScanner = new Scanner(new File("commonWords.txt"));
-					}
-				catch (FileNotFoundException e)
-					{
+				String[] boringWords;
 
-					}
+				int wordCount = 0;
 
-				ignoredWords.clear();
+				Scanner ignoredScanner = new Scanner(this.getClass().getResourceAsStream("commonWords.txt"));
 
 				while (ignoredScanner.hasNextLine())
 					{
-						ignoredWords.add(ignoredScanner.nextLine());
+						ignoredScanner.nextLine();
+						wordCount++;
 					}
-				return null;
+				boringWords = new String[wordCount];
+				ignoredScanner.close();
+
+				ignoredScanner = new Scanner(this.getClass().getResourceAsStream("commonWords.txt"));
+				for (int index = 0; index < boringWords.length; index++)
+					{
+						boringWords[index] = ignoredScanner.nextLine();
+					}
+
+				ignoredScanner.close();
+				return boringWords;
 			}
 
 		private void collectTweets(String username)
 			{
-				// chatbotTwitter.searchUsers(username, arg1)
+				searchedTweets.clear();
+				tweetedWords.clear();
+
+				Paging statusPage = new Paging(1, 100);
+				int page = 1;
+
+				while (page <= 10)
+					{
+						statusPage.setPage(page);
+						try
+							{
+								searchedTweets.addAll(chatbotTwitter.getUserTimeline(username, statusPage));
+							}
+						catch (TwitterException searchTweetError)
+							{
+								baseController.handleErrors(searchTweetError);
+							}
+
+						page++;
+					}
+
 			}
 
 		public String getMostCommonWord(String username)
 			{
+				String popularWord = "";
 				collectTweets(username);
 				turnStatusesToWords();
-				
+
 				removeAllBoringWords();
 				removeEmptyText();
-				
-				String popularWord = "";
-				
+
 				return popularWord;
 			}
 
@@ -97,31 +125,90 @@ public class CTECTwitter
 
 		private void removeAllBoringWords()
 			{
+				String[] boringWords = createIgnoredWordArray();
 				for (int index = 0; index < tweetedWords.size(); index++)
 					{
-						for (String boring : createIgnoredWordArray())
+						for (int boringIndex = 0; boringIndex < boringWords.length; boringIndex++)
 							{
-								if (tweetedWords.get(index).equalsIgnoreCase(boring))
+								if (tweetedWords.get(index).equalsIgnoreCase(boringWords[boringIndex]))
 									{
 										tweetedWords.remove(index);
 										index--;
+										boringIndex = boringWords.length;
 									}
 							}
 					}
 			}
 
 		private void turnStatusesToWords()
+			{
+				for (Status currentStatus : searchedTweets)
+					{
+						String tweetText = currentStatus.getText();
+						String[] tweetWords = tweetText.split(" ");
+						for (int index = 0; index < tweetWords.length; index++)
+							{
+								tweetedWords.add(tweetWords[index]);
+							}
+					}
+			}
+
+		private String rankWords(ArrayList<String> words)
 		{
-			for(Status currentStatus : searchedTweets)
+			List<String> wordNode = new ArrayList<String>();
+			wordNode.add("");
+			wordNode.add("0");
+			
+			for(int index = 0; index < tweetedWords.size(); index++)
 				{
-					String tweetText = currentStatus.getText();
-					String [] tweetWords = tweetText.split(" ");
-					for(int index = 0; index < tweetWords.length; index++)
+					for(List<String> currentWordNode : rankedWords)
 						{
-							tweetedWords.add(tweetWords[index]);
+							if(currentWordNode.contains(tweetedWords.get(index)))
+								{
+								
+									int count = Integer.parseInt(currentWordNode.get(1));
+									currentWordNode.set(1, count + 1 + "");
+								}
+							else{
+									wordNode.set(0, tweetedWords.get(index));
+									int count = Integer.parseInt(currentWordNode.get(1));
+									wordNode.set(1, count + 1 + "");
+									rankedWords.add(wordNode);
+								}
 						}
 				}
+			
+			return "";
 		}
 		
-		
+		private String calculatePopularWordAndCount()
+		{
+			String information = "";
+			String mostPopular = "";
+			int popularIndex = 0;
+			int popularCount = 0;
+			
+			for(int index = 0; index < tweetedWords.size(); index++)
+				{
+					int currentPopularity = 0;
+					
+					for(int searched = index + 1; searched < tweetedWords.size(); searched++)
+						{
+							popularCount++;
+							currentPopularity ++;
+						}
+					if(currentPopularity > popularCount)
+						{
+							popularIndex = index;
+							popularCount = currentPopularity;
+							mostPopular = tweetedWords.get(index);
+						}
+				}
+			
+			information = "The most popular word is: " + mostPopular + ", and it occurred " + popularCount + " times out of " + tweetedWords.size() + ", AKA" + ((double) popularCount)/tweetedWords.size() + "%";
+			
+			return information;
+			
+		}
+
 	}
