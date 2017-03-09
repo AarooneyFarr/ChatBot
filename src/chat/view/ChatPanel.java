@@ -147,7 +147,7 @@ public class ChatPanel extends JPanel
 			{
 				loadButton.addActionListener(new ActionListener()
 					{
-						public void actionPerformed(ActionEvent click)
+						public void actionPerformed(ActionEvent clickLoad)
 							{
 								// TODO add choice for custom conversation file
 
@@ -167,7 +167,7 @@ public class ChatPanel extends JPanel
 
 				saveButton.addActionListener(new ActionListener()
 					{
-						public void actionPerformed(ActionEvent click)
+						public void actionPerformed(ActionEvent clickSave)
 							{
 								saveConversation();
 							}
@@ -183,16 +183,18 @@ public class ChatPanel extends JPanel
 				
 				analyzeButton.addActionListener(new ActionListener()
 					{
-						public void actionPerformed(ActionEvent click)
+						public void actionPerformed(ActionEvent clickAnalyze)
 							{
 								String results = baseController.searchTwitterUser(chatField.getText());
 								chatDisplay.setText(results + chatDisplay.getText());
+								baseController.useTwitter("Testing Code.");
+								System.out.println("please work");
 							}
 					});
 
 				chatButton.addActionListener(new ActionListener()
 					{
-						public void actionPerformed(ActionEvent click)
+						public void actionPerformed(ActionEvent clickChat)
 							{
 								if (dumbBot.lengthChecker(chatField.getText()))
 									{

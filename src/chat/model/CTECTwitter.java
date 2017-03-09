@@ -107,7 +107,8 @@ public class CTECTwitter
 
 				removeAllBoringWords();
 				removeEmptyText();
-
+				popularWord = rankWords();
+				
 				return popularWord;
 			}
 
@@ -153,11 +154,12 @@ public class CTECTwitter
 					}
 			}
 
-		private String rankWords(ArrayList<String> words)
+		private String rankWords()
 		{
 			List<String> wordNode = new ArrayList<String>();
 			wordNode.add("");
 			wordNode.add("0");
+			int highestRank = 0;
 			
 			for(int index = 0; index < tweetedWords.size(); index++)
 				{
@@ -178,7 +180,15 @@ public class CTECTwitter
 						}
 				}
 			
-			return "";
+			for(List<String> currentWordNode : rankedWords)
+			{
+				if(Integer.parseInt(currentWordNode.get(1)) > highestRank)
+				{
+					highestRank = Integer.parseInt(currentWordNode.get(1)); 
+				}
+			}
+			
+			return "The highest used word is: " + highestRank;
 		}
 		
 		private String calculatePopularWordAndCount()

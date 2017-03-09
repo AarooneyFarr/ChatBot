@@ -43,7 +43,7 @@ public class ChatbotController
 	 */
 	public void start()
 	{
-		
+		twitterBot.getMostCommonWord("jek mek?");
 	}
 
 	/**
