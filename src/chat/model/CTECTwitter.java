@@ -107,9 +107,14 @@ public class CTECTwitter
 
 				removeAllBoringWords();
 				removeEmptyText();
+<<<<<<< Updated upstream
 				popularWord = rankWords();
 				
 				return popularWord;
+=======
+
+				return calculatePopularWordAndCount();
+>>>>>>> Stashed changes
 			}
 
 		private void removeEmptyText()
