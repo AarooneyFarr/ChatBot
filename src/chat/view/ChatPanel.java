@@ -186,8 +186,8 @@ public class ChatPanel extends JPanel
 						public void actionPerformed(ActionEvent clickAnalyze)
 							{
 								String results = baseController.searchTwitterUser(chatField.getText());
-								chatDisplay.setText(results + chatDisplay.getText());
-								baseController.useTwitter("Testing Code.");
+								chatDisplay.setText(results);
+								
 								System.out.println("please work");
 							}
 					});

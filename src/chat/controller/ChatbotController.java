@@ -43,7 +43,8 @@ public class ChatbotController
 	 */
 	public void start()
 	{
-		twitterBot.getMostCommonWord("jek mek?");
+		
+		
 	}
 
 	/**
@@ -180,7 +181,7 @@ public class ChatbotController
 	public String searchTwitterUser(String username)
 	{
 		String searchResults = "";
-		searchResults = "The most popular word by user: " + username + " is.";
+		searchResults = "The most popular word by user: " + username + " is. ";
 		searchResults += twitterBot.getMostCommonWord(username);
 		return searchResults;
 	}
