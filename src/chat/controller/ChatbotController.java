@@ -202,6 +202,13 @@ public class ChatbotController
 	{
 		return stupidBot;
 	}
+	
+	public String useSampleInvestigation()
+	{
+		
+		
+		return twitterBot.sampleInvestigation();
+	}
 
 
 }

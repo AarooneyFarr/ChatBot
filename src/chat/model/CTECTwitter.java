@@ -10,8 +10,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
 import java.text.DecimalFormat;
-
+import twitter4j.Query;
+import twitter4j.QueryResult;
 import twitter4j.Paging;
+import twitter4j.GeoLocation;
 
 public class CTECTwitter
 	{
@@ -181,51 +183,54 @@ public class CTECTwitter
 
 		private String rankWords()
 			{
-				List<String> wordNode = new ArrayList<String>();
-				wordNode.add("");
-				wordNode.add("0");
+				
+				rankedWords.clear();
+				
 				int highestRank = 0;
 
 				for (int index = 0; index < tweetedWords.size(); index++)
 					{
-						wordNode.set(0, tweetedWords.get(index));
+						List<String> wordNode = new ArrayList<String>();
+						wordNode.add(tweetedWords.get(index));
+						wordNode.add("0");
+
 						if (rankedWords.size() == 0)
 							{
 								rankedWords.add(wordNode);
 							}
-						else
+						boolean added= false;
+						for (int position = 0; position < rankedWords.size(); position++)
 							{
-								for (int position = 0; position < rankedWords.size(); position++)
+								if (rankedWords.get(position).get(0).equalsIgnoreCase(wordNode.get(0)))
 									{
-										if (rankedWords.get(position).get(0).contains(wordNode.get(0)))
-											{
 
-												int count = Integer.parseInt(rankedWords.get(position).get(1));
-												
-												
-												rankedWords.get(position).set(1, count + 1 + "");
-											}
-										else
-											{
-												
-												
-												wordNode.set(1, 1 + "");
-												rankedWords.add(wordNode);
-											}
+										int count = Integer.parseInt(rankedWords.get(position).get(1));
+
+										rankedWords.get(position).set(1, (count + 1) + "");
+										added= true;
+										
 									}
 							}
+						if(!added)
+							{
+								wordNode.set(1, "1");
+								rankedWords.add(wordNode);
+							}
+						
 					}
-
+				String popular = "";
+				String popularCount = "";
 				for (int position = 0; position < rankedWords.size(); position++)
 					{
 						if (Integer.parseInt(rankedWords.get(position).get(1)) > highestRank)
 							{
 								highestRank = Integer.parseInt(rankedWords.get(position).get(1));
-								wordNode.set(0, rankedWords.get(position).get(0));
+								popular =  rankedWords.get(position).get(0);
+								popularCount = rankedWords.get(position).get(1);
 							}
 					}
 
-				return "The highest used word is: " + wordNode.get(0);
+				return "The highest used word is " + popular + " and it occurs " + popularCount + " times.";
 			}
 
 		private String calculatePopularWordAndCount()
@@ -261,5 +266,32 @@ public class CTECTwitter
 				return information;
 
 			}
+		
+		public String sampleInvestigation()
+		{
+			String results = "";
+			
+			Query query = new Query("Trump");
+			query.setCount(1000);
+			query.setGeoCode(new GeoLocation(40.509540,-111.857691), 125, Query.KILOMETERS);
+			query.setSince("2017,1,1");
+			
+			try
+				{
+					QueryResult result = chatbotTwitter.search(query);
+					results += "Count: " + result.getTweets().size() + "\n";
+					for(Status tweet : result.getTweets())
+						{
+							results += "@" + tweet.getUser().getName() + ": " + tweet.getText() + "\n";
+						}
+				}
+			catch(TwitterException error)
+				{
+					error.printStackTrace();
+				}
+			 
+			return results;
+			
+		}
 
 	}
