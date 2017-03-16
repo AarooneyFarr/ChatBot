@@ -183,9 +183,9 @@ public class CTECTwitter
 
 		private String rankWords()
 			{
-				
+
 				rankedWords.clear();
-				
+
 				int highestRank = 0;
 
 				for (int index = 0; index < tweetedWords.size(); index++)
@@ -198,7 +198,7 @@ public class CTECTwitter
 							{
 								rankedWords.add(wordNode);
 							}
-						boolean added= false;
+						boolean added = false;
 						for (int position = 0; position < rankedWords.size(); position++)
 							{
 								if (rankedWords.get(position).get(0).equalsIgnoreCase(wordNode.get(0)))
@@ -207,16 +207,16 @@ public class CTECTwitter
 										int count = Integer.parseInt(rankedWords.get(position).get(1));
 
 										rankedWords.get(position).set(1, (count + 1) + "");
-										added= true;
-										
+										added = true;
+
 									}
 							}
-						if(!added)
+						if (!added)
 							{
 								wordNode.set(1, "1");
 								rankedWords.add(wordNode);
 							}
-						
+
 					}
 				String popular = "";
 				String popularCount = "";
@@ -225,7 +225,7 @@ public class CTECTwitter
 						if (Integer.parseInt(rankedWords.get(position).get(1)) > highestRank)
 							{
 								highestRank = Integer.parseInt(rankedWords.get(position).get(1));
-								popular =  rankedWords.get(position).get(0);
+								popular = rankedWords.get(position).get(0);
 								popularCount = rankedWords.get(position).get(1);
 							}
 					}
@@ -266,32 +266,64 @@ public class CTECTwitter
 				return information;
 
 			}
-		
+
 		public String sampleInvestigation()
-		{
-			String results = "";
-			
-			Query query = new Query("Trump");
-			query.setCount(1000);
-			query.setGeoCode(new GeoLocation(40.509540,-111.857691), 125, Query.KILOMETERS);
-			query.setSince("2017,1,1");
-			
-			try
-				{
-					QueryResult result = chatbotTwitter.search(query);
-					results += "Count: " + result.getTweets().size() + "\n";
-					for(Status tweet : result.getTweets())
-						{
-							results += "@" + tweet.getUser().getName() + ": " + tweet.getText() + "\n";
-						}
-				}
-			catch(TwitterException error)
-				{
-					error.printStackTrace();
-				}
-			 
-			return results;
-			
-		}
+			{
+				String results = "";
+				
+
+				try
+					{
+						Query query = new Query("Trump");
+						query.setCount(100);
+						query.setGeoCode(new GeoLocation(40.509540, -111.857691), 25, Query.MILES);
+						query.setSince("2017-1-1");
+						QueryResult result = chatbotTwitter.search(query);
+						results += "Count: " + result.getTweets().size() + "\n";
+						for (Status tweet : result.getTweets())
+							{
+								results += "@" + tweet.getUser().getName() + ": " + tweet.getText() + "\n";
+								
+								
+							}
+					}
+				catch (TwitterException error)
+					{
+						error.printStackTrace();
+					}
+				
+				return results;
+
+			}
+		
+		public String investigation(String search, double lat, double longitude, double miles)
+			{
+				String results = "";
+				
+
+				try
+					{
+						Query query = new Query(search);
+						query.setCount(100);
+						query.setGeoCode(new GeoLocation(lat, longitude), miles, Query.MILES);
+						query.setSince("2017-1-1");
+						QueryResult result = chatbotTwitter.search(query);
+						results += "Count: " + result.getTweets().size() + "\n";
+						for (Status tweet : result.getTweets())
+							{
+								results += "@" + tweet.getUser().getName() + ": " + tweet.getText() + "\n" + "\n";
+								
+								
+							}
+					}
+				catch (TwitterException error)
+					{
+						error.printStackTrace();
+					}
+				
+				return results;
+
+			}
+
 
 	}

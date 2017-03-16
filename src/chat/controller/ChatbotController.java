@@ -2,8 +2,8 @@ package chat.controller;
 
 import chat.model.Chatbot;
 import chat.view.ChatViewer;
-import chat.view.ChatFrame;
-import chat.view.ChatPanel;
+import chat.view.*;
+
 import chat.model.CTECTwitter;
 
 public class ChatbotController
@@ -22,6 +22,7 @@ public class ChatbotController
 	 * instance of ChatFrame used in the controller
 	 */
 	private ChatFrame appFrame;
+	private searchFrame searchFrame;
 	private CTECTwitter twitterBot;
 
 	/**
@@ -34,6 +35,7 @@ public class ChatbotController
 		// remember gui after model
 		display = new ChatViewer();
 		appFrame = new ChatFrame(this);
+		searchFrame = new searchFrame(this);
 		
 
 	}
@@ -208,6 +210,16 @@ public class ChatbotController
 		
 		
 		return twitterBot.sampleInvestigation();
+	}
+	
+	public String useInvestigation(String search, double lat, double longitude, double miles)
+	{
+		return twitterBot.investigation(search, lat, longitude, miles);
+	}
+	
+	public searchFrame getSearchFrame()
+	{
+		return searchFrame;
 	}
 
 

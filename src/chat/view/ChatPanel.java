@@ -54,6 +54,8 @@ public class ChatPanel extends JPanel
 		private JButton saveButton;
 		private JButton sendButton;
 		private JButton analyzeButton;
+		private JButton searchButton;
+		private SearchPanel searchPanel;
 
 		/**
 		 * Constructor for the type JPanel
@@ -70,12 +72,13 @@ public class ChatPanel extends JPanel
 
 				chatField = new JTextField(25);
 				chatIcon = new JLabel(new ImageIcon(ChatPanel.class.getResource("/chat/view/images/chatbot.png")), JLabel.CENTER);
-
+				searchPanel = new SearchPanel(baseController);
 				chatButton = new JButton("enter");
 				loadButton = new JButton("load");
 				saveButton = new JButton("save");
 				sendButton = new JButton("send");
 				analyzeButton = new JButton("analyze");
+				searchButton = new JButton("search");
 
 				chatDisplay = new JTextArea("What do you want to talk about?");
 				chatScroll = new JScrollPane(chatDisplay, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -100,8 +103,7 @@ public class ChatPanel extends JPanel
 				chatDisplay.setWrapStyleWord(true);
 				chatDisplay.setLineWrap(true);
 				chatDisplay.setDisabledTextColor(Color.BLACK);
-				analyzeButton.setBounds(656, 34, 86, 71);
-				chatScroll.setBounds(241, 253, 310, 109);
+				
 
 			}
 
@@ -110,12 +112,15 @@ public class ChatPanel extends JPanel
 		 */
 		private void setupLayout()
 			{
+				analyzeButton.setBounds(656, 34, 86, 71);
+				chatScroll.setBounds(241, 253, 310, 109);
 				chatField.setBounds(241, 419, 310, 26);
 				chatIcon.setBounds(318, 34, 159, 182);
 				chatButton.setBounds(360, 479, 76, 29);
 				loadButton.setBounds(656, 556, 75, 71);
 				saveButton.setBounds(656, 382, 75, 71);
 				sendButton.setBounds(656, 208, 75, 71);
+				searchButton.setBounds(656,684,75,71);
 
 			}
 
@@ -137,6 +142,7 @@ public class ChatPanel extends JPanel
 				this.add(chatScroll);
 
 				this.add(chatIcon);
+				this.add(searchButton);
 
 			}
 
@@ -170,6 +176,15 @@ public class ChatPanel extends JPanel
 						public void actionPerformed(ActionEvent clickSave)
 							{
 								saveConversation();
+							}
+					});
+				
+				searchButton.addActionListener(new ActionListener()
+					{
+						public void actionPerformed(ActionEvent clickSearch)
+							{
+								baseController.getSearchFrame().setContentPane(searchPanel);
+								baseController.getSearchFrame().setVisible(true);
 							}
 					});
 				
