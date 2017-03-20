@@ -270,11 +270,11 @@ public class CTECTwitter
 		public String sampleInvestigation()
 			{
 				String results = "";
-				
+				int htmlNumber = 0;
 
 				try
 					{
-						Query query = new Query("Trump");
+						Query query = new Query("href");
 						query.setCount(100);
 						query.setGeoCode(new GeoLocation(40.509540, -111.857691), 25, Query.MILES);
 						query.setSince("2017-1-1");
@@ -282,7 +282,12 @@ public class CTECTwitter
 						results += "Count: " + result.getTweets().size() + "\n";
 						for (Status tweet : result.getTweets())
 							{
-								results += "@" + tweet.getUser().getName() + ": " + tweet.getText() + "\n";
+								if(baseController.getChatbot().inputHTMLChecker(tweet.getText()))
+									{
+										htmlNumber++;
+										
+										
+									}
 								
 								
 							}
@@ -292,7 +297,7 @@ public class CTECTwitter
 						error.printStackTrace();
 					}
 				
-				return results;
+				return "The number of HTML tweets is: " + htmlNumber;
 
 			}
 		
